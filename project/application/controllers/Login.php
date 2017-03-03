@@ -11,6 +11,7 @@ class Login extends CI_Controller {
 
 
     public function index() {
+        echo "string";
         $submit = $this->input->post('submit');
         var_dump($submit);
         if (!isset($submit)) {
