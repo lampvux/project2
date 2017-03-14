@@ -24,7 +24,7 @@
 			<link rel="stylesheet" href="assets/css/ace-part2.min.css" />
 		<![endif]-->
 		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
-
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -45,9 +45,12 @@
 						<div class="login-container">
 							<div class="center">
 								<?php if ($this->session->flashdata('type')): ?>
-									<div class="alert alert-<?php echo $this->session->flashdata('type');?>">
-										<?php echo $this->session->flashdata('msg'); ?>
-									</div>
+									<div class="pull-left alert alert-<?php echo $this->session->flashdata('type');?> no-margin alert-dismissable">
+			                            <button type="button" class="close" data-dismiss="alert">
+			                                <i class="ace-icon fa fa-times"></i>
+			                            </button>
+			                            <?php echo $this->session->flashdata('msg'); ?>
+			                        </div>
 								<?php endif ?>
 							</div>
 							<?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
@@ -57,7 +60,7 @@
 								<div id="login-box" class="login-box visible widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">
-											<h4 class="header blue lighter bigger">
+											<h4 class="header green lighter bigger">
 												<i class="ace-icon fa fa-coffee green"></i>
 												Điền thông tin đăng nhập
 											</h4>
@@ -153,7 +156,7 @@
 													</label>
 
 													<div class="clearfix">
-														<button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
+														<button type="submit" class="pull-right btn btn-sm btn-danger">
 															<i class="ace-icon fa fa-lightbulb-o"></i>
 															<span class="bigger-110">Gửi mã cho tôi!</span>
 														</button>

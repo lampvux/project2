@@ -23,9 +23,9 @@ html {
 body {
     background-color: #E4E6E9;
     padding-bottom: 0;
-    font-family: 'Open Sans';
+    font-family: 'Roboto', sans-serif;
     font-size: 13px;
-    color: #393939;
+    color: #585858;
     line-height: 1.5
 }
 
@@ -12055,10 +12055,6 @@ tr.detail-row>td {
     transform: scale(1.2)
 }
 
-.widget-body {
-    background-color: #FFF
-}
-
 .widget-main {
     padding: 12px
 }
@@ -13873,7 +13869,10 @@ tr.detail-row>td {
 }
 
 .login-layout {
-    background-color: #1D2024
+    background-color: #1D2024;
+    background-image: url(../img/study.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .login-layout .main-container:before {
@@ -13885,7 +13884,7 @@ tr.detail-row>td {
     margin-right: 0!important;
     min-height: 100%;
     padding-left: 15px;
-    padding-right: 15px
+    padding-right: 15px;
 }
 
 .login-layout .widget-box {
@@ -13895,12 +13894,11 @@ tr.detail-row>td {
     border-bottom: none;
     box-shadow: none;
     padding: 6px;
-    background-color: #394557;
     -moz-transform: scale(0, 1) translate(-150px);
     -webkit-transform: scale(0, 1) translate(-150px);
     -o-transform: scale(0, 1) translate(-150px);
     -ms-transform: scale(0, 1) translate(-150px);
-    transform: scale(0, 1) translate(-150px)
+    transform: scale(0, 1) translate(-150px);
 }
 
 .login-layout .widget-box.visible {
@@ -13915,12 +13913,13 @@ tr.detail-row>td {
     transition: transform .3s ease;
     -moz-transition: -moz-transform .3s ease;
     -webkit-transition: -webkit-transform .3s ease;
-    -o-transition: -o-transform .2s ease
+    -o-transition: -o-transform .2s ease;
+    color: #fff;
 }
 
 .login-layout .widget-box .widget-main {
     padding: 16px 36px 36px;
-    background: #F7F7F7
+    background: rgba(0, 0, 0, 0.32);
 }
 
 .login-layout .widget-box .widget-main form {
@@ -13942,8 +13941,7 @@ tr.detail-row>td {
 }
 
 .login-box .toolbar {
-    background: #5090C1;
-    border-top: 2px solid #597597
+    background: #76B774;
 }
 
 .login-box .toolbar>div {
@@ -13978,8 +13976,7 @@ tr.detail-row>td {
 
 .signup-box .toolbar {
     background: #76B774;
-    border-top: 2px solid #759759;
-    padding: 9px 18px
+    padding: 9px 18px;
 }
 
 .forgot-box .back-to-login-link,
@@ -14016,7 +14013,6 @@ tr.detail-row>td {
     top: 50%;
     left: 0;
     right: 0;
-    border-top: 1px dotted #A6C4DB
 }
 
 .social-login a {

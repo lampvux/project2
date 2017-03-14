@@ -5,10 +5,10 @@ class Profile extends MY_Controller {
 
 	public function index()
 	{
-		$this->load->view('header-dashboard');
-		$this->load->view('sidebar-dashboard');
-		$this->load->view('main-content-dashboard');
-		$this->load->view('footer');
+		$this->load->view('dashboard\header');
+		$this->load->view('dashboard\sidebar');
+		$this->load->view('dashboard\main-content');
+		$this->load->view('dashboard\footer');
 	}
 
 }

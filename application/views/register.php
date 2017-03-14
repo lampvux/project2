@@ -15,7 +15,7 @@
 
 	<!-- text fonts -->
 	<link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
-
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<!-- ace styles -->
 	<link rel="stylesheet" href="assets/css/ace.min.css" />
 	<link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css" />
@@ -53,7 +53,7 @@
 								<div class="widget-body">
 									<div class="widget-main">
 										<h4 class="header green lighter bigger">
-											<i class="ace-icon fa fa-users blue"></i>
+											<i class="ace-icon fa fa-users"></i>
 											New User Registration
 										</h4>
 
@@ -124,7 +124,7 @@
 												</label> -->
 												<div class="clearfix center">
 													<input type="hidden" name="access_token" value="<?= $ci_nonce; ?>">
-													<button type="submit" class="center btn-sm btn btn-success">
+													<button type="submit" class="form-control btn-sm btn btn-success">
 														<span class="bigger-110">Đăng ký</span>
 													</button>
 												</div>
