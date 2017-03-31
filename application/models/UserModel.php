@@ -154,7 +154,12 @@ class UserModel extends CI_Model {
 	 * @return [array]        [mảng thông tin]
 	 */
 	public function get_user_meta($where){
-		return $this->db->where($where)->get(USER_META_TABLE)->result_array();
+		$meta = array();
+		$results = $this->db->where($where)->get(USER_META_TABLE)->result_array();
+		foreach ($results as $key => $value) {
+			$meta[$value['meta_key']] = $value['meta_value'];
+		}
+		return $meta;
 	}
 
 	/**

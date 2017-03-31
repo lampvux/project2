@@ -128,19 +128,19 @@ class Login extends CI_Controller {
 
         if (isset($_POST['email_address'])) {
             $to = $this->input->post('email_address');
-            // $this->load->library('email');
+            $this->load->library('email');
 
-            // $this->email->from('tiendatbt@gmail.com', 'Nguyễn Tiến Đạt');
-            // $this->email->to($to);
+            $this->email->from('tiendatbt@gmail.com', 'Nguyễn Tiến Đạt');
+            $this->email->to($to);
 
-            // $this->email->subject('RESET PASSWORD');
-            // $this->email->message("Xin chào, chúng tôi nhận được yêu cầu thay đổi mật khẩu của bạn. Vui lòng truy cập vào đường dẫn sau để thực hiện thay đổi: " . base_url('/reset_password/' . base64_encode($to)));
+            $this->email->subject('RESET PASSWORD');
+            $this->email->message("Xin chào, chúng tôi nhận được yêu cầu thay đổi mật khẩu của bạn. Vui lòng truy cập vào đường dẫn sau để thực hiện thay đổi: " . base_url('/reset_password/' . base64_encode($to)));
 
-            // $this->email->send();
+            $this->email->send();
             // Cài đặt thông báo
             $this->session->set_flashdata('type', 'success');
             $this->session->set_flashdata('msg', 'Đường dẫn đã được gửi tới email của bạn. Vui lòng kiểm tra email và thay đổi mật khẩu.');
-            // redirect('/login');
+            redirect('/login');
         }
     }
 

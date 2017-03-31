@@ -83,7 +83,7 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
-define('ASSET_FOLDER', 'http://localhost/dashboard/assets/'); //link to assets folder
+define('ASSET_FOLDER', 'http://nguyendangdungha.com/assets/'); //link to assets folder
 define('ASPIRATIONS_TABLE', 'aspirations'); // Lưu nguyện vọng của sinh viên và yêu cầu tuyển dụng của doanh nghiệp
 define('DIVISION_TABLE', 'division'); // Phân công thực tập
 define('FILES_TABLE', 'files'); // Lưu thông tin về toàn bộ file trên hệ thống
@@ -115,4 +115,9 @@ define('PER_PAGE', 50);
 // ================= Sant to scrypt =================
 
 define('SALT', 'TrungLamThongDat');
+
+
+// ================= Sant to scrypt =================
+
+define('DEFAULT_AVATAR', ASSET_FOLDER.'img/dashboard-img/avatars/profile-pic.jpg');
 

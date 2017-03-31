@@ -3,6 +3,7 @@
 class MY_Controller extends CI_Controller {
 
 	protected $ci_nonce;
+	protected $url;
 	public function __construct()
 	{
 		parent::__construct();
@@ -16,6 +17,9 @@ class MY_Controller extends CI_Controller {
         }
         $this->ci_nonce = $this->session->ci_nonce;
         $this->load->model('UserModel');
+        $this->url = base_url(uri_string()); 
+		$this->url = str_replace(base_url(), "", $this->url);
+		$this->session->set_userdata("current_page", $this->url);
 	}
 
 }
