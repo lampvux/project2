@@ -105,7 +105,10 @@
 			backgroundSize: 'contain',
 			backgroundPosition: 'center'
 		});
-		// $('#user-profile').find('input[type=file]').ace_file_input('show_file_list', [{type: 'image', name: $('#avatar').attr('src')}]);
+		$("#sidebar > ul > li > a").each(function() {
+			if($(this).attr('href') == "<?= $this->session->current_page ?>" )
+				$(this).parent('li').addClass('active');
+		});
 	});
 </script>
 </body>

@@ -88,7 +88,6 @@
 			// no_icon:'ace-icon fa fa-picture-o',
 			thumbnail:'large',
 			droppable:true,
-			src : $('#avatar').attr('src'),
 			allowExt: ['jpg', 'jpeg', 'png', 'gif'],
 			allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
 		})
@@ -100,8 +99,16 @@
 		})
 		$('.input-mask-phone').mask('(999) 999-9999');
 		$('#form-field-phone-2').mask('(9999) 9999-999');
-	
-		// $('#user-profile').find('input[type=file]').ace_file_input('show_file_list', [{type: 'image', name: $('#avatar').attr('src')}]);
+		$(".ace-file-container").css({
+			backgroundImage: 'url('+$('#avatar').attr('src')+')',
+			backgroundRepeat: 'no-repeat',
+			backgroundSize: 'contain',
+			backgroundPosition: 'center'
+		});
+		$("#sidebar > ul > li > a").each(function() {
+			if($(this).attr('href') == "<?= $this->session->current_page ?>" )
+				$(this).parent('li').addClass('active');
+		});
 	});
 </script>
 </body>

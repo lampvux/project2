@@ -18,7 +18,6 @@
 					<span class="menu-text">
 						CV
 					</span>
-
 				</a>
 				<b class="arrow"></b>
 			</li>
@@ -101,10 +100,4 @@
 		</div>
 	</div>
 
-	<!-- <script>
-		jQuery(document).ready(function($) {
-			$("#sidebar > ul > li > a").each(function() {
-				console.log($(this).attr('href'));
-			});
-		});
-	</script> -->
+	
