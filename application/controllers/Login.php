@@ -58,7 +58,7 @@ class Login extends CI_Controller {
                 $this->session->set_userdata('is_logged_in', true);
                 $this->session->set_userdata('uid', $user[0]['uid']);
                 $this->session->set_userdata('user_type', $user[0]['user_type']);
-                redirect('/profile');
+                redirect('profile');
             }else{
                 // Cài đặt thông báo
                 $this->session->set_flashdata('type', 'danger');
@@ -108,7 +108,7 @@ class Login extends CI_Controller {
             $this->session->set_userdata('is_logged_in', true);
             $this->session->set_userdata('uid', $uid);
             $this->session->set_userdata('user_type', $this->input->post('user_type'));
-            redirect('/profile');
+            redirect('profile');
                 
         }
     	

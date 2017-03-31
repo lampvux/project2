@@ -38,6 +38,8 @@
 </script>
 <script src="assets/js/bootstrap.min.js"></script>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMTQLm7omfoGI6tpH2AtNrL-_5aBdLsE&libraries=places&callback=initAutoComplete" async defer></script>
+
 <!-- page specific plugin scripts -->
 
 <!--[if lte IE 8]>
@@ -63,8 +65,20 @@
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-	jQuery(function($) {
+	function initAutoComplete(){
+		var address_input = document.getElementsByClassName('address');
+		for (var i = 0; i < address_input.length; i++) {
+			var autoComplete = new google.maps.places.Autocomplete(
+				address_input[i], 
+				{
+					types: ['geocode'],
+				  	componentRestrictions: {country: "vn"}
+				}
+			);
+		}
+	}
 	
+	jQuery(function($) {
 		//editables on first profile page
 		$.fn.editable.defaults.mode = 'inline';
 		$.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";

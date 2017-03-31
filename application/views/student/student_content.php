@@ -23,7 +23,7 @@
             <div class="vspace-12-sm"></div>
             <div class="space"></div>
 			<!-- user-profile -->
-            <div class="col-sm-offset-1 col-sm-10 user-profile well well-sm" id="user-profile">
+            <div class="user-profile well well-sm" id="user-profile">
                 <div class="space"></div>
 
                 <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
@@ -89,6 +89,14 @@
                                                     <input name="meta[gender]" type="radio" class="ace" value="nu" <?= isset($user_meta['gender']) && $user_meta['gender'] == 'nu' ? 'checked' : ''; ?> required />
                                                     <span class="lbl middle"> Nữ</span>
                                                 </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label no-padding-right" for="form-field-address">Địa chỉ</label>
+
+                                            <div class="col-sm-8">
+                                                <input class="col-xs-12 col-sm-10 form-control address" type="text" id="form-field-address" name="meta[address]" value="<?= isset($user_meta['address']) ? $user_meta['address'] : '';?>" required />
                                             </div>
                                         </div>
 

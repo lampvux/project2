@@ -38,6 +38,7 @@
 </script>
 <script src="assets/js/bootstrap.min.js"></script>
 
+
 <!-- page specific plugin scripts -->
 
 <!--[if lte IE 8]>
@@ -63,8 +64,8 @@
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-	jQuery(function($) {
 	
+	jQuery(function($) {
 		//editables on first profile page
 		$.fn.editable.defaults.mode = 'inline';
 		$.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";

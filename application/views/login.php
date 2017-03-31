@@ -363,8 +363,7 @@
 				$('form#login-form fieldset').html(div).slideDown(400);
 			}
 		</script> 
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMTQLm7omfoGI6tpH2AtNrL-_5aBdLsE&libraries=places"
-        async defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMTQLm7omfoGI6tpH2AtNrL-_5aBdLsE&libraries=places" async defer></script>
    		
 		<script type="text/javascript">
 	    	function initAutoComplete(input){

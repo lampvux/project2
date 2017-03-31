@@ -73,7 +73,7 @@
 
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
-						<li class="grey dropdown-modal">
+						<li class="dropdown-modal">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -150,7 +150,7 @@
 							</ul>
 						</li>
 
-						<li class="purple dropdown-modal">
+						<li class="dropdown-modal">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-bell icon-animated-bell"></i>
 								<span class="badge badge-important">8</span>
@@ -218,7 +218,7 @@
 							</ul>
 						</li>
 
-						<li class="light-blue dropdown-modal">
+						<li class="dropdown-modal">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<img id="avatar" class="nav-user-photo" src="<?php echo isset($user_meta['avatar']) ? $user_meta['avatar'] : DEFAULT_AVATAR ; ?>" alt="<?= $user['username'] ?>'s Photo" />
 								<span class="user-info">

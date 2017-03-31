@@ -92,7 +92,7 @@ class Register extends CI_Controller {
                 // Cài đặt thông báo
                 $this->session->set_flashdata('type', 'success');
                 $this->session->set_flashdata('msg', 'Đăng ký thành công, vui lòng đăng nhập');
-                redirect('/login');
+                redirect('login');
                 
             }
 
