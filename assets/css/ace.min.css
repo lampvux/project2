@@ -22415,8 +22415,7 @@ input.typeahead.scrollable~.tt-menu {
 .login-layout input[type='password']:focus,
 .login-layout input[type='email'],
 .login-layout input[type='email']:focus,
-.login-layout select,
-.login-layout select:focus {
+.login-layout select {
     background-color: transparent;
     color: #fff;
     border-top: none;

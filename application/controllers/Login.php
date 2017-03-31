@@ -24,16 +24,7 @@ class Login extends CI_Controller {
 
 
     public function index() {
-        // $this->load->library('email');
 
-        // $this->email->from('tiendatbt@gmail.com', 'Nguyễn Tiến Đạt');
-        // $this->email->to('tiendatbt@gmail.com');
-
-        // $this->email->subject('RESET PASSWORD');
-        // $this->email->message("Xin chào, chúng tôi nhận được yêu cầu thay đổi mật khẩu của bạn. Vui lòng truy cập vào đường dẫn sau để thực hiện thay đổi: ");
-
-        // $this->email->send();
-        mail('tiendatbt@gmail.com', 'RESET PASSWORD', "Xin chào, chúng tôi nhận được yêu cầu thay đổi mật khẩu của bạn. Vui lòng truy cập vào đường dẫn sau để thực hiện thay đổi: ");
         // Đặt các luật kiểm tra các trường của form
         $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|trim|regex_match[/^[A-Za-z0-9_-]{4,15}$/i]');
         $this->form_validation->set_rules("password', 'Mật khẩu', 'required|trim|regex_match[/^[A-Za-z_0-9-]{4,15}$/i]");
@@ -153,13 +144,11 @@ class Login extends CI_Controller {
         }
     }
 
-
     public function login_with_social(){
-        header('Access-Control-Allow-Origin: *');
         if (isset($_POST['avatar'])) {
             $email = $this->input->post('email');
             $result = [];
-            $user = $this->UserModel->get_user_data(['email' => $email]);
+            $user = $this->UserModel->get_user_data(array('email' => $email));
             if (count($user)) {
                 // Cài đặt thông báo
                 $this->session->set_flashdata('type', 'success');
@@ -190,5 +179,17 @@ class Login extends CI_Controller {
             echo json_encode($res);
         }
     }
+
+    /**
+     * Thêm thông tin công ty đối tác
+     * @param [array] $data [mảng dữ liệu]
+     */
+    private function add_company($data = null){
+        if ($data == null) {
+            return false;
+        }
+        return $this->UserModel->add_company($data);
+    }
+
 }
 ?>

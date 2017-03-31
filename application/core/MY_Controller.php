@@ -15,6 +15,7 @@ class MY_Controller extends CI_Controller {
             $this->session->set_userdata("ci_nonce", substr(md5(microtime()),0,15));
         }
         $this->ci_nonce = $this->session->ci_nonce;
+        $this->load->model('UserModel');
 	}
 
 }

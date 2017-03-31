@@ -205,12 +205,13 @@
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			jQuery(function($) {
-			 $(document).on('click', '.toolbar a[data-target]', function(e) {
-				e.preventDefault();
-				var target = $(this).data('target');
-				$('.widget-box.visible').removeClass('visible');//hide others
-				$(target).addClass('visible');//show target
-			 });
+			 	$(document).on('click', '.toolbar a[data-target]', function(e) {
+					e.preventDefault();
+					var target = $(this).data('target');
+					$('.widget-box.visible').removeClass('visible');//hide others
+					$(target).addClass('visible');//show target
+				 	
+			 	});
 			});
 			
 			// Facebook JS API setup
@@ -253,9 +254,10 @@
 						      				url: $('base').attr('href')+'login/login_with_social',
 						      				type: 'POST',
 						      				dataType: 'json',
-						      				data: user_data,
+						      				data: user_data
 						      			})
 						      			.done(function(data) {
+						      				console.log(data);
 						      				if (data.type == 'login_success') {
 						      					window.location = $('base').attr('href')+'/profile/';
 						      				}else{
@@ -299,10 +301,10 @@
 			      				url: $('base').attr('href')+'login/login_with_social',
 			      				type: 'POST',
 			      				dataType: 'json',
-			      				data: user_data,
+			      				data: user_data
 			      			})
 			      			.done(function(data) {
-			      				console.log("========== AJAX ==========");
+			      				console.log(data);
 			      				if (data.type == 'login_success') {
 			      					window.location = $('base').attr('href')+'/profile/';
 			      				}else{
@@ -363,5 +365,110 @@
 		</script> 
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMTQLm7omfoGI6tpH2AtNrL-_5aBdLsE&libraries=places"
         async defer></script>
+   		
+		<script type="text/javascript">
+	    	function initAutoComplete(input){
+	    		var autocomplete = new google.maps.places.Autocomplete(input);
+	    	}
+			jQuery(function($) {
+				$("#login-box").on('change', '#user_typer',function() {
+					$("#login-box .user_type_meta").slideUp(400);
+					var user_type = $(this).val();
+					var meta = '';
+					switch (user_type){
+						case "<?php echo STUDENT_USER_TYPE;?>":
+							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+								'<input type="text" name="student_id" id="student_id" class="form-control" placeholder="Mã số sinh viên">'+
+								'<i class="ace-icon fa fa-graduation-cap"></i></span></label>';
+							break;
+						case "<?php echo BUSSINESS_USER_TYPE;?>":
+						<?php if (count($companies)): ?>
+							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+								'<select class="form-control" name="company_id" id="company_id">'+
+								<?php foreach ($companies as $company) {
+									echo "'<option value=\'".$company['company_id']."\'>".$company['company_name']."</option>'+";
+								}?>
+								'<option value="other">Công ty khác</option></select>';
+							break;
+						<?php else: ?>
+							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_name" id="company_name" class="form-control" placeholder="Tên công ty">'+
+							'<i class="ace-icon fa fa-building-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_domain" id="company_domain" class="form-control" placeholder="Trang web công ty">'+
+							'<i class="ace-icon fa fa-globe"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_phone" id="company_phone" class="form-control" placeholder="Số máy công ty">'+
+							'<i class="ace-icon fa fa-phone"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
+							'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
+							'<i class="ace-icon fa fa-map-marker "></i></span></label>';
+							break;
+						<?php endif; ?>
+						case "<?php echo BUSSINESS_STAFF_USER_TYPE;?>":
+						<?php if (count($companies)): ?>
+							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+								'<select class="form-control" name="company_id" id="company_id">'+
+								<?php foreach ($companies as $company) {
+									echo "'<option value=\'".$company['company_id']."\'>".$company['company_name']."</option>'+";
+								}?>
+								'<option value="other">Công ty khác</option></select>';
+							break;
+						<?php else: ?>
+							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_name" id="company_name" class="form-control" placeholder="Tên công ty">'+
+							'<i class="ace-icon fa fa-building-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_domain" id="company_domain" class="form-control" placeholder="Trang web công ty">'+
+							'<i class="ace-icon fa fa-globe"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_phone" id="company_phone" class="form-control" placeholder="Số máy công ty">'+
+							'<i class="ace-icon fa fa-phone"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
+							'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
+							'<i class="ace-icon fa fa-map-marker "></i></span></label>';
+							break;
+						<?php endif; ?>
+						default:
+							break;
+					}
+					if (meta != '') {
+						$(".user_type_meta").slideDown(400).html(meta);				
+					}
+					$("#company_date_created").datepicker({format: 'yyyy-mm-dd'});
+					initAutoComplete( document.getElementById('company_address') );
+
+				});
+				$('#login-box').on("change", "#company_id", function(){
+					if ($(this).val() == 'other' ) {
+						$(".user_type_meta").slideUp(400);
+						$(".user_type_meta").slideDown(400).html('<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_name" id="company_name" class="form-control" placeholder="Tên công ty">'+
+							'<i class="ace-icon fa fa-building-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_domain" id="company_domain" class="form-control" placeholder="Trang web công ty">'+
+							'<i class="ace-icon fa fa-globe"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_phone" id="company_phone" class="form-control" placeholder="Số máy công ty">'+
+							'<i class="ace-icon fa fa-phone"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
+							'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
+							'<i class="ace-icon fa fa-map-marker "></i></span></label>'
+						);
+						$("#company_date_created").datepicker({format: 'yyyy-mm-dd'});
+						initAutoComplete( document.getElementById('company_address') );
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

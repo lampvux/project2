@@ -201,7 +201,7 @@
 						'<i class="ace-icon fa fa-phone"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 						'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
-						'<i class="ace-icon fa fa-calendar"></i></span></label>'+
+						'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 						'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
 						'<i class="ace-icon fa fa-map-marker "></i></span></label>';
@@ -228,7 +228,7 @@
 						'<i class="ace-icon fa fa-phone"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 						'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
-						'<i class="ace-icon fa fa-calendar"></i></span></label>'+
+						'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 						'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
 						'<i class="ace-icon fa fa-map-marker "></i></span></label>';
@@ -258,7 +258,7 @@
 						'<i class="ace-icon fa fa-phone"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 						'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
-						'<i class="ace-icon fa fa-calendar"></i></span></label>'+
+						'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 						'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
 						'<i class="ace-icon fa fa-map-marker "></i></span></label>'
