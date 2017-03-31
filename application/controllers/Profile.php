@@ -16,7 +16,7 @@ class Profile extends MY_Controller {
 				$data['user'] = $this->UserModel->get_user_data(['uid'=>$this->session->uid])[0];
 				$data['user_meta'] = $this->UserModel->get_user_meta(['uid'=>$this->session->uid]);
 				$data['title'] = $data['user']['fullname'] . ' - Trang cá nhân' ;
-				$this->load->view('student/student_header', $data);
+				$this->load->view('student/student_header', $daat);
 				$this->load->view('student/student_sidebar');
 				$this->load->view('student/student_content');
 				$this->load->view('dashboard/footer');

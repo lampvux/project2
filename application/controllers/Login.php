@@ -155,6 +155,7 @@ class Login extends CI_Controller {
 
 
     public function login_with_social(){
+        header('Access-Control-Allow-Origin: *');
         if (isset($_POST['avatar'])) {
             $email = $this->input->post('email');
             $result = [];
