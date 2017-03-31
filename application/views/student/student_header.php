@@ -19,7 +19,8 @@
 		<link rel="stylesheet" href="assets/css/select2.min.css" />
 		<link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css" />
 		<link rel="stylesheet" href="assets/css/bootstrap-editable.min.css" />
-
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="assets/css/cv.css">
 		<!-- text fonts -->
 		<link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
 

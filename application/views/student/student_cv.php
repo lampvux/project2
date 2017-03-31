@@ -22,234 +22,125 @@
             </div>
             <div class="vspace-12-sm"></div>
             <div class="space"></div>
-			<!-- user-profile -->
-            <div class="col-sm-offset-1 col-sm-10 user-profile well well-sm" id="user-profile">
-                <div class="space"></div>
+			<!-- user-cv -->
+            <div class="col-xs-12">
 
-                <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
-                    <div class="tabbable">
-                        <ul class="nav nav-tabs padding-16">
-                            <li class="active">
-                                <a data-toggle="tab" href="#edit-basic">
-                                    <i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
-                                    Thông tin cơ bản
-                                </a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#edit-password">
-                                    <i class="blue ace-icon fa fa-key bigger-125"></i>
-                                    Mật khẩu
-                                </a>
-                            </li>
-                        </ul>
-
-                        <div class="tab-content profile-edit-tab-content">
-                            <div id="edit-basic" class="tab-pane in active">
-                                <h4 class="header blue bolder smaller">Tổng quan</h4>
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-4 col-md-3">
-										<input type="file" name="avatar">
-									</div>
-
-                                    <div class="vspace-12-sm"></div>
-
-                                    <div class="col-xs-12 col-sm-8 col-md-9">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label no-padding-right" for="form-field-username">Họ và tên</label>
-
-                                            <div class="col-sm-8">
-                                                <input class="col-xs-12 col-sm-10 form-control" type="text" id="form-field-username" name="main[fullname]" placeholder="Luu Quang Trung" value="<?= $user['fullname'];?>" required />
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label no-padding-right" for="form-field-date">Ngày sinh</label>
-
-                                            <div class="col-sm-4">
-                                                <div class="input-group">
-                                                    <input class="form-control date-picker" id="form-field-date" type="text" data-date-format="dd-mm-yyyy" name="meta[birth]" placeholder="dd-mm-yyyy" value="<?= isset($user_meta['birth']) ? $user_meta['birth'] : "" ?>" required/>
-                                                    <span class="input-group-addon">
-                                                        <i class="ace-icon fa fa-calendar"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label no-padding-right">Giới tính</label>
-
-                                            <div class="col-sm-8">
-                                                <label class="inline">
-                                                    <input name="meta[gender]" type="radio" class="ace" value="nam" <?= isset($user_meta['gender']) && $user_meta['gender'] == 'nam' ? 'checked' : ''; ?> required />
-                                                    <span class="lbl middle"> Nam</span>
-                                                </label>
-
-                                                <label class="inline">
-                                                    <input name="meta[gender]" type="radio" class="ace" value="nu" <?= isset($user_meta['gender']) && $user_meta['gender'] == 'nu' ? 'checked' : ''; ?> required />
-                                                    <span class="lbl middle"> Nữ</span>
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label no-padding-right" for="form-field-comment">Giới thiệu ngắn </label>
-
-                                            <div class="col-sm-8">
-                                                <textarea class="form-control" name="meta[short_des]" id="form-field-comment" ><?= isset($user_meta['short_des']) ? $user_meta['short_des'] : "" ?></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                
-                                
-
-
-                                
-
-                                <div class="space"></div>
-                                <h4 class="header blue bolder smaller">Liên hệ</h4>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
-
-                                    <div class="col-sm-9">
-                                        <span class="input-icon input-icon-left">
-                                            <input type="email" name="main[email]" required id="form-field-email" value="<?= $user['email'] ?>" />
-                                            <i class="ace-icon fa fa-envelope"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="space-4"></div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-website">Website</label>
-
-                                    <div class="col-sm-9">
-                                        <span class="input-icon input-icon-left">
-                                            <input type="url" name="meta[website]" id="form-field-website" value="<?= isset($user_meta['website']) ? $user_meta['website'] : "" ?>" />
-                                            <i class="ace-icon fa fa-globe"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="space-4"></div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Số điện thoại</label>
-
-                                    <div class="col-sm-9">
-                                        <span class="input-icon input-icon-left">
-                                            <input class="form-control input-mask-phone" type="text" id="form-field-phone" value="<?= isset($user_meta['phone']) ? $user_meta['phone'] : "" ?>" name="meta[phone]" />
-                                            <i class="ace-icon fa fa-phone"></i>
-                                        </span>
-                                        <div class="space-4"></div>
-                                        <span class="input-icon input-icon-left">
-                                            <input class="form-control" value="<?= isset($user_meta['phone2']) ? $user_meta['phone2'] : "" ?>" type="text" id="form-field-phone-2" name="meta[phone2]" />
-                                            <i class="ace-icon fa fa-phone"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="space"></div>
-                                <h4 class="header blue bolder smaller">Mạng xã hội</h4>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
-
-                                    <div class="col-sm-9">
-                                        <span class="input-icon">
-                                            <input type="text" value="<?= isset($user_meta['facebook']) ? $user_meta['facebook'] : "" ?>" id="form-field-facebook" name="meta[facebook]" />
-                                            <i class="ace-icon fa fa-facebook blue"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="space-4"></div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-twitter">Twitter</label>
-
-                                    <div class="col-sm-9">
-                                        <span class="input-icon">
-                                            <input type="text" value="<?= isset($user_meta['twitter']) ? $user_meta['twitter'] : "" ?>" id="form-field-twitter"  name="meta[twitter]"/>
-                                            <i class="ace-icon fa fa-twitter light-blue"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="space-4"></div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">Google+</label>
-
-                                    <div class="col-sm-9">
-                                        <span class="input-icon">
-                                            <input type="text" value="<?= isset($user_meta['google']) ? $user_meta['google'] : "" ?>" id="form-field-gplus"  name="meta[google]"/>
-                                            <i class="ace-icon fa fa-google-plus red"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="space-4"></div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">Youtube</label>
-
-                                    <div class="col-sm-9">
-                                        <span class="input-icon">
-                                            <input type="text" value="<?= isset($user_meta['youtube']) ? $user_meta['youtube'] : "" ?>" id="form-field-youtube"  name="meta[youtube]"/>
-                                            <i class="ace-icon fa fa-youtube red"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="edit-password" class="tab-pane">
-                                <div class="space-10"></div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">Mật khẩu mới</label>
-
-                                    <div class="col-sm-9">
-                                        <input type="password" id="form-field-pass1" />
-                                    </div>
-                                </div>
-
-                                <div class="space-4"></div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">Nhập lại</label>
-
-                                    <div class="col-sm-9">
-                                        <input type="password" id="form-field-pass2" />
-                                    </div>
-                                </div>
-                            </div>
+                <div id="main_container" class="row">
+                    <!-- HEADER -->
+                    <div id="header_cv">
+                        <!-- LOGOTYPE/NAME -->
+                        <div class="header_logotype_container col-md-4 col-xs-12 col-sm-4">
+                            <h1 class="logotype_name">Javier <span class="purple">Latorre</span></h1>
+                            <h2 class="logotype_occupation">Frontend Web Developer</h2>
+                        </div>
+                        <!-- MAIN MENU -->
+                        <div class="header_menu_container col-sm-8 col-xs-12">
+                            <div class="clear"></div>
+                            <ul class="header_menu horizontal_list">
+                                <li><a class="no_border purple" href="#">Profile</a></li>
+                                <li><a href="#">Education</a></li>
+                                <li><a href="#">Skills</a></li>
+                                <li><a href="#">Work Experience</a></li>
+                                <li><a href="#">Featured Projects</a></li>
+                                <li><a href="#">Awards</a></li>
+                            </ul>
                         </div>
                     </div>
-					
-					<!-- ci_nonce -->
-					<input type="hidden" name="ci_nonce" value="<?= $ci_nonce; ?>">
-
-                    <div class="clearfix form-actions">
-                        <div class="col-md-offset-3 col-md-9">
-                            <button class="btn btn-info" type="submit">
-                                <i class="ace-icon fa fa-check bigger-110"></i>
-                                Lưu thông tin
-                            </button>
-
-                            <button class="btn" type="reset">
-                                <i class="ace-icon fa fa-undo bigger-110"></i>
-                                Đặt lại
-                            </button>
+                    <!-- LEFT COL -->
+                    <div id="left_col" class="col-md-4 col-xs-12 col-sm-4">
+                        <div class="profile_frame">
+                            <div class="profile_picture" style="background-image: url(<?= isset($user_meta['avatar']) ? $user_meta['avatar'] : DEFAULT_AVATAR ?>);"></div>
+                        </div>
+                        <div class="hello_content">
+                            <h2>Hello!</h2>
+                            <p>I'm passionate about technology and human behavior, hardworker and a fast-learner with experience in around 10 different countries studying, working and volunteering.</p>
+                        </div>
+                        <div class="contact_details_content">
+                            <h2>Thông tin liên hệ: </h2>
+                            <p class="purple">Số điện thoại:</p>
+                            <p><?= isset($user_meta['phone']) ? $user_meta['phone'] : 'Chưa có' ?></p>
+                            <p><?= isset($user_meta['phone2']) ? $user_meta['phone2'] : 'Chưa có' ?></p>
+                            <p class="purple">Email:</p>
+                            <p><?= $user['email'] ?></p>
+                            <p class="purple">Adress:</p>
+                            <p>Someplace, 5</p>
+                            <p>Jaén, Spain</p>
+                            <p>23001</p>
+                        </div>
+                        <a href="mailto:jlalovi@gmail.com" class="send_message_button">
+                            <span class="cut1"></span>
+                            <span class="cut2"></span>
+                            <span class="content">Send me a message <span class="fontawesome-double-angle-right"></span></span>
+                        </a>
+                        <div class="get_social_content">
+                            <h2>Get social</h2>
+                            <ul class="social_icons horizontal_list">
+                                <li><a class="facebook" href="https://www.facebook.com/jlalovi"><span class="entypo-facebook-circled"></span><span class="invisible">Facebook</span></a></li>
+                                <li><a class="twitter" href="https://twitter.com/jlalovi"><span class="entypo-twitter-circled"></span><span class="invisible">Twitter</span></a></li>
+                                <li><a class="linkedin" href="https://www.linkedin.com/in/jlalovi/en"><span class="entypo-linkedin-circled"></span><span class="invisible">LinkedIn</span></a></li>
+                            </ul>
                         </div>
                     </div>
-                </form>
+                    <!-- PROFILE CONTENT -->
+                    <div id="content_container" class="col-sm-8 col-xs-12">
+                        <div class="block">
+                            <h1>Profile</h1>
+                            <blockquote class="profile_quote">
+                                <p>"There is no end to education. It is not that you read a book, pass an examination, and finish with education. The whole of life, from the moment you are born to the moment you die, is a process of learning."</p>
+                                <p>Jiddu Krishnamurti.</p>
+                                <span class="entypo-quote"></span>
+                            </blockquote>
+                        </div>
+                        <div class="block">
+                            <h2>A few words about me</h2>
+                            <p>Until now, in my life, I change from active moments with a lot of variety, challenges and improvisations, to moments of tranquility and stability, being difficult to stay in a place during a long time. I consider myself a tolerant and respectful person with open mind and quite honest. I really like to listen people stories and backgrounds and their different experiences around the world.</p>
+                        </div>
+                        <div class="horizontal_line">
+                            <div class="line_left"></div>
+                            <div class="left_circle"></div>
+                            <div class="central_circle"></div>
+                            <div class="right_circle"></div>
+                            <div class="line_right"></div>
+                        </div>
+                        <div class="block">
+                            <h2>Philosophy</h2>
+                            <p>I belive in ethic and moral not in imposed rules that you "have to" do or follow.</p>
+                            <div class="philosophy_content">
+                                <p>I believe life is made from different shades of grey, not from black and white. Furthermore, as a human being with rationality, I think it is our duty to take care of the world and treat others as one would like others to treat oneself. This way of perceiving reality affects my beliefs and my way of behaving. Summarizing on several points:</p>
+                                <ul>
+                                    <li>Pragmatic</li>
+                                    <li>Honest</li>
+                                    <li>Respectful</li>
+                                    <li>Open-minded</li>
+                                    <li>Coherent</li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="horizontal_line">
+                            <div class="line_left"></div>
+                            <div class="left_circle"></div>
+                            <div class="central_circle"></div>
+                            <div class="right_circle"></div>
+                            <div class="line_right"></div>
+                        </div>
+                        <div class="last block">
+                            <h2>Interests & Hobbies</h2>
+                            <p>I'm passionate about technology and human behavior, both determine almost all my interests and hobbies:</p>
+                            <ul>
+                                <li>Visiting new places</li>
+                                <li>Meeting people</li>
+                                <li>Having new experiences</li>
+                                <li>Hiking and Biking</li>
+                                <li>Web Developing</li>
+                                <li>Computer Gamming</li>
+                                <li>Manga and Anime</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- /.user-profile -->
+            <!-- /.user-cv -->
             
             <!-- PAGE CONTENT ENDS -->
         </div><!-- /.col -->
