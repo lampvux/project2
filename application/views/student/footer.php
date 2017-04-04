@@ -112,5 +112,9 @@
 		});
 	});
 </script>
+<?php if (isset($is_student_cv) && $is_student_cv): ?>
+	<script src="assets/js/cv.js"></script>
+<?php endif; ?>
+
 </body>
 </html>

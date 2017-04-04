@@ -157,7 +157,18 @@ class UserModel extends CI_Model {
 		$meta = array();
 		$results = $this->db->where($where)->get(USER_META_TABLE)->result_array();
 		foreach ($results as $key => $value) {
-			$meta[$value['meta_key']] = $value['meta_value'];
+			// Nếu có nhiều meta chứa cùng một thông tin của một key
+			// Ví dụ: Sở thích (nghe nhạc, xem phim, du lịch, chịch dạo ...)
+			if (array_key_exists($value['meta_key'], $meta) ) {
+				if (!is_array($meta[$value['meta_key']]) ) {
+					$meta[$value['meta_key']] = [ $meta[$value['meta_key']] ];
+					array_push($meta[$value['meta_key']], $value['meta_value']);
+				}else{
+					array_push($meta[$value['meta_key']], $value['meta_value']);
+				}
+			}else{
+				$meta[$value['meta_key']] = $value['meta_value'];
+			}
 		}
 		return $meta;
 	}
@@ -169,6 +180,16 @@ class UserModel extends CI_Model {
 	 */
 	public function delete_user_meta($where){
 		return $this->db->where($where)->delete(USER_META_TABLE);
+	}
+
+
+	/**
+	 * Xoá một bản ghi trên bảng thông tin phụ của user
+	 * @param  [array|string] $where [Điều kiện xóa thông tin]
+	 * @return [Boolean]
+	 */
+	public function delete_once_user_meta($where){
+		return $this->db->where($where)->limit(1)->delete(USER_META_TABLE);
 	}
 
 
