@@ -223,5 +223,28 @@ jQuery(function($) {
 	    );
     };
 
+    // Toggle CV content
+    $('ul.header_menu li span').on('click', function(e){
+		$('.cv_content').addClass('hide');
+		$($(this).attr('href')).removeClass('hide').fadeIn('slow');
+	});
+
+
+    // Skill styling
+    $('.easy-pie-chart.percentage').each(function(){
+		var barColor = $(this).data('color') || '#555';
+		var trackColor = '#fff';
+		var size = parseInt($(this).data('size')) || 72;
+		$(this).easyPieChart({
+			barColor: barColor,
+			trackColor: trackColor,
+			scaleColor: false,
+			lineCap: 'butt',
+			lineWidth: parseInt(size/10),
+			animate:false,
+			size: size
+		}).css('color', barColor);
+	});
+
 
 });

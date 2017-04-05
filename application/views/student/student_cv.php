@@ -44,12 +44,12 @@
                     <div class="header_menu_container col-sm-8 col-xs-12">
                         <div class="clear"></div>
                         <ul class="header_menu horizontal_list">
-                            <li><a class="no_border" href="#">Profile</a></li>
-                            <li><a href="#">Education</a></li>
-                            <li><a href="#">Skills</a></li>
-                            <li><a href="#">Work Experience</a></li>
-                            <li><a href="#">Featured Projects</a></li>
-                            <li><a href="#">Awards</a></li>
+                            <li><span class="no_border" href="#Profile">Profile</span></li>
+                            <li><span href="#Education">Education</span></li>
+                            <li><span href="#Skills">Skills</span></li>
+                            <li><span href="#Work_Experience">Work Experience</span></li>
+                            <li><span href="#Featured_Projects">Featured Projects</span></li>
+                            <li><span href="#Awards">Awards</span></li>
                         </ul>
                     </div>
                 </div>
@@ -90,69 +90,169 @@
                 </div>
                 <!-- PROFILE CONTENT -->
                 <div id="content_container" class="col-sm-8 col-xs-12">
-                    <div class="block">
-                        <h1>Triết lý sống</h1>
-                        <blockquote class="profile_quote">
-                            <p id="cv_quote">
-                                "<?= isset($user_meta['quote']) ? $user_meta['quote'] : 'There is no end to education. It is not that you read a book, pass an examination, and finish with education. The whole of life, from the moment you are born to the moment you die, is a process of learning.' ?>"
-                            </p>
-                            <span class="entypo-quote"></span>
-                        </blockquote>
-                    </div>
-                    <div class="horizontal_line">
-                        <div class="line_left"></div>
-                        <div class="left_circle"></div>
-                        <div class="central_circle"></div>
-                        <div class="right_circle"></div>
-                        <div class="line_right"></div>
-                    </div>
-                    <div class="block">
-                        <h2>Tính cách</h2>
-                        <div class="philosophy_content">
-                            <p id="philosophy_intro">
-                                <?= isset($user_meta['philosophy_intro']) ? $user_meta['philosophy_intro'] : 'I believe life is made from different shades of grey, not from black and white. Furthermore, as a human being with rationality, I think it is our duty to take care of the world and treat others as one would like others to treat oneself. This way of perceiving reality affects my beliefs and my way of behaving. Summarizing on several points:' ?>
-                            </p>
-                            <ul id="philosophies">
-                                <?php if (isset($user_meta['philosophies']) && is_array($user_meta['philosophies'])): ?>
-                                    <?php foreach ($user_meta['philosophies'] as $hobbie): ?>
-                                        <li class="single_philosophy">
+                    <!-- Profile -->
+                    <div id="Profile" class="cv_content">
+                        <div class="block">
+                            <h1>Triết lý sống</h1>
+                            <blockquote class="profile_quote">
+                                <p id="cv_quote">
+                                    "<?= isset($user_meta['quote']) ? $user_meta['quote'] : 'There is no end to education. It is not that you read a book, pass an examination, and finish with education. The whole of life, from the moment you are born to the moment you die, is a process of learning.' ?>"
+                                </p>
+                                <span class="entypo-quote"></span>
+                            </blockquote>
+                        </div>
+                        <div class="horizontal_line">
+                            <div class="line_left"></div>
+                            <div class="left_circle"></div>
+                            <div class="central_circle"></div>
+                            <div class="right_circle"></div>
+                            <div class="line_right"></div>
+                        </div>
+                        <div class="block">
+                            <h2>Tính cách</h2>
+                            <div class="philosophy_content">
+                                <p id="philosophy_intro">
+                                    <?= isset($user_meta['philosophy_intro']) ? $user_meta['philosophy_intro'] : 'I believe life is made from different shades of grey, not from black and white. Furthermore, as a human being with rationality, I think it is our duty to take care of the world and treat others as one would like others to treat oneself. This way of perceiving reality affects my beliefs and my way of behaving. Summarizing on several points:' ?>
+                                </p>
+                                <ul id="philosophies">
+                                    <?php if (isset($user_meta['philosophies']) && is_array($user_meta['philosophies'])): ?>
+                                        <?php foreach ($user_meta['philosophies'] as $hobbie): ?>
+                                            <li class="single_philosophy">
+                                                <?= $hobbie ?>
+                                                <span class="badge badge-important hide " style="cursor: pointer;">x</span>
+                                            </li>
+                                        <?php endforeach ?>
+                                    <?php elseif(isset($user_meta['philosophies']) && !is_array($user_meta['philosophies'])):  ?>
+                                        <li><?= $user_meta['philosophies'] ?><span class="badge badge-important hide " style="cursor: pointer;">x</span></li>
+                                    <?php endif ?>   
+                                </ul>
+                                <div class="clear"></div>
+                                <div class="space"></div>
+                                <button class="btn btn-info" id="add_new_philosophy">Thêm tính cách mới</button>
+                            </div>
+                        </div>
+                        <div class="horizontal_line">
+                            <div class="line_left"></div>
+                            <div class="left_circle"></div>
+                            <div class="central_circle"></div>
+                            <div class="right_circle"></div>
+                            <div class="line_right"></div>
+                        </div>
+                        <div class="last block">
+                            <h2>Sở thích</h2>
+                            <p id="hobbies_intro"><?= isset($user_meta['quote']) ? $user_meta['quote'] : 'I\'m passionate about technology and human behavior, both determine almost all my interests and hobbies:' ?></p>
+                            <ul id="hobbies">
+                                <?php if (isset($user_meta['hobbies']) && is_array($user_meta['hobbies'])): ?>
+                                    <?php foreach ($user_meta['hobbies'] as $hobbie): ?>
+                                        <li class="single_hobbie">
                                             <?= $hobbie ?>
                                             <span class="badge badge-important hide " style="cursor: pointer;">x</span>
                                         </li>
                                     <?php endforeach ?>
-                                <?php elseif(isset($user_meta['philosophies']) && !is_array($user_meta['philosophies'])):  ?>
-                                    <li><?= $user_meta['philosophies'] ?><span class="badge badge-important hide " style="cursor: pointer;">x</span></li>
-                                <?php endif ?>   
+                                <?php elseif(isset($user_meta['hobbies']) && !is_array($user_meta['hobbies'])):  ?>
+                                    <?= $user_meta['hobbies'] ?>
+                                <?php endif ?>                            
                             </ul>
-                            <div class="clear"></div>
-                            <div class="space"></div>
-                            <button class="btn btn-info" id="add_new_philosophy">Thêm tính cách mới</button>
+                            <span id="add_new_hobbie">Thêm sở thích mới nào!</span>
                         </div>
                     </div>
-                    <div class="horizontal_line">
-                        <div class="line_left"></div>
-                        <div class="left_circle"></div>
-                        <div class="central_circle"></div>
-                        <div class="right_circle"></div>
-                        <div class="line_right"></div>
+                    <!-- /Profile -->
+
+
+                    <!-- Education -->
+                    <div id="Education" class="cv_content hide">
+                        <h2>Học bạ</h2>
+                        <div class="timeline-container block">
+                            <div class="timeline-label">
+                                <span class="label label-grey arrowed-in-right label-lg">
+                                    <b>May 17</b>
+                                </span>
+                            </div>
+
+                            <div class="timeline-items">
+                                <div class="timeline-item clearfix">
+                                    <div class="timeline-info">
+                                        <i class="timeline-indicator ace-icon fa fa-leaf btn btn-primary no-hover green"></i>
+                                    </div>
+
+                                    <div class="widget-box transparent">
+                                        <div class="widget-header widget-header-small">
+                                            <h5 class="widget-title smaller">Lorum Ipsum</h5>
+                                        </div>
+
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod
+                                                <span class="blue bolder">high life</span>
+                                                accusamus terry richardson ad squid &hellip;
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.timeline-items -->
+                        </div><!-- /.timeline-container -->
+
                     </div>
-                    <div class="last block">
-                        <h2>Sở thích</h2>
-                        <p id="hobbies_intro"><?= isset($user_meta['quote']) ? $user_meta['quote'] : 'I\'m passionate about technology and human behavior, both determine almost all my interests and hobbies:' ?></p>
-                        <ul id="hobbies">
-                            <?php if (isset($user_meta['hobbies']) && is_array($user_meta['hobbies'])): ?>
-                                <?php foreach ($user_meta['hobbies'] as $hobbie): ?>
-                                    <li class="single_hobbie">
-                                        <?= $hobbie ?>
-                                        <span class="badge badge-important hide " style="cursor: pointer;">x</span>
-                                    </li>
-                                <?php endforeach ?>
-                            <?php elseif(isset($user_meta['hobbies']) && !is_array($user_meta['hobbies'])):  ?>
-                                <?= $user_meta['hobbies'] ?>
-                            <?php endif ?>                            
-                        </ul>
-                        <span id="add_new_hobbie">Thêm sở thích mới nào!</span>
+                    <!-- /Education -->
+                    
+
+                    <!-- Skills -->
+                    <div id="Skills" class="cv_content hide">
+                        <div class="block">
+                            <h2>Kỹ năng</h2>
+                            <div class="clearfix">
+                                <div class="grid4 center">
+                                    <div class="easy-pie-chart percentage" data-percent="45" data-color="#CA5952">
+                                        <span class="percent">45</span>%
+                                    </div>
+
+                                    <div class="space-2"></div>
+                                    Graphic Design
+                                </div>
+
+                                <div class="grid4 center">
+                                    <div class="center easy-pie-chart percentage" data-percent="90" data-color="#59A84B">
+                                        <span class="percent">90</span>%
+                                    </div>
+
+                                    <div class="space-2"></div>
+                                    HTML5 & CSS3
+                                </div>
+
+                                <div class="grid4 center">
+                                    <div class="center easy-pie-chart percentage" data-percent="80" data-color="#9585BF">
+                                        <span class="percent">80</span>%
+                                    </div>
+
+                                    <div class="space-2"></div>
+                                    Javascript/jQuery
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+                    <!-- /Skills -->
+                    
+
+                    <!-- Work_Experience -->
+                    <div id="Work_Experience" class="cv_content hide">
+                        <h1>Work_Experience</h1>
+                    </div>
+                    <!-- /Work_Experience -->
+                    
+
+                    <!-- Featured_Projects -->
+                    <div id="Featured_Projects" class="cv_content hide">
+                        <h1>Featured_Projects</h1>
+                    </div>
+                    <!-- /Featured_Projects -->
+                    
+
+                    <!-- Awards -->
+                    <div id="Awards" class="cv_content hide">
+                        <h1>Awards</h1>
+                    </div>
+                    <!-- /Awards -->
                 </div>
             </div>
         
