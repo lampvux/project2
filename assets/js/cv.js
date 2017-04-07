@@ -198,11 +198,19 @@ jQuery(function($) {
     	delete_meta_data("philosophies", hobbie);
     });
 
-    // Xóa một tính cách
+    // Xóa một chứng chỉ
     $("#diplomaes").on('click', '.search-promotion.label.label-danger', function(event) {
     	var diploma = $(this).attr('data-diploma').trim();
     	$(this).parent().parent().remove();
     	delete_meta_data("diplomaes", diploma);
+    });
+
+
+    // Xóa một học bạ
+    $("#Education .timeline-container").on('click', '.widget-toolbar a', function(event) {
+    	var school_profile = $(this).attr('data-school').trim();
+    	$(this).parent().parent().parent().parent().remove();
+    	delete_meta_data("school_profiles", school_profile);
     });
 
 
@@ -297,6 +305,11 @@ jQuery(function($) {
                         <div class="widget-box transparent">
                             <div class="widget-header widget-header-small">
                                 <h5 class="widget-title smaller">`+form_data[1].value+`</h5>
+                                <span class="widget-toolbar">
+                                    <a data-school="`+form_data[1].value + "_" + form_data[0].value+`">
+                                        <i class="ace-icon fa fa-times"></i>
+                                    </a>     
+                                </span>
                             </div>
 
                             <div class="widget-body">

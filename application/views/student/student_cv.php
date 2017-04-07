@@ -176,6 +176,11 @@
                                                 <div class="widget-box transparent">
                                                     <div class="widget-header widget-header-small">
                                                         <h5 class="widget-title smaller"><?= $school[0] ?></h5>
+                                                        <span class="widget-toolbar">
+                                                            <a data-school="<?= $school[0] ?>_<?= $school[1] ?>">
+                                                                <i class="ace-icon fa fa-times"></i>
+                                                            </a>     
+                                                        </span>
                                                     </div>
 
                                                     <div class="widget-body">
@@ -194,10 +199,15 @@
                                             <div class="timeline-info">
                                                 <i class="timeline-indicator ace-icon fa fa-graduation-cap btn btn-primary no-hover green"></i>
                                             </div>
-
+                                        
                                             <div class="widget-box transparent">
                                                 <div class="widget-header widget-header-small">
                                                     <h5 class="widget-title smaller"><?= $school[0] ?></h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-school="<?= $user_meta['school_profiles'] ?>">
+                                                            <i class="ace-icon fa fa-times"></i>
+                                                        </a>     
+                                                    </span>
                                                 </div>
 
                                                 <div class="widget-body">
