@@ -161,37 +161,96 @@
 
                     <!-- Education -->
                     <div id="Education" class="cv_content hide">
-                        <h2>Học bạ</h2>
-                        <div class="timeline-container block">
-                            <div class="timeline-label">
-                                <span class="label label-grey arrowed-in-right label-lg">
-                                    <b>May 17</b>
-                                </span>
-                            </div>
+                        <div class="block">
+                            <h2>Quá trình học tập</h2>
+                            <div class="timeline-container">
+                                <?php if (isset($user_meta['school_profiles']) && is_array($user_meta['school_profiles'])): ?>
+                                    <?php foreach ($user_meta['school_profiles'] as $school): ?>
+                                        <?php $school = explode('_', $school); ?>
+                                        <div class="timeline-items">
+                                            <div class="timeline-item clearfix">
+                                                <div class="timeline-info">
+                                                    <i class="timeline-indicator ace-icon fa fa-graduation-cap btn btn-primary no-hover green"></i>
+                                                </div>
 
-                            <div class="timeline-items">
-                                <div class="timeline-item clearfix">
-                                    <div class="timeline-info">
-                                        <i class="timeline-indicator ace-icon fa fa-leaf btn btn-primary no-hover green"></i>
-                                    </div>
+                                                <div class="widget-box transparent">
+                                                    <div class="widget-header widget-header-small">
+                                                        <h5 class="widget-title smaller"><?= $school[0] ?></h5>
+                                                    </div>
 
-                                    <div class="widget-box transparent">
-                                        <div class="widget-header widget-header-small">
-                                            <h5 class="widget-title smaller">Lorum Ipsum</h5>
-                                        </div>
+                                                    <div class="widget-body">
+                                                        <div class="widget-main">
+                                                            <?= $school[1] ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.timeline-items -->
+                                    <?php endforeach ?>
+                                <?php elseif (isset($user_meta['school_profiles']) && !is_array($user_meta['school_profiles'])): ?>
+                                    <?php $school = explode('_', $user_meta['school_profiles']); ?>
+                                    <div class="timeline-items">
+                                        <div class="timeline-item clearfix">
+                                            <div class="timeline-info">
+                                                <i class="timeline-indicator ace-icon fa fa-graduation-cap btn btn-primary no-hover green"></i>
+                                            </div>
 
-                                        <div class="widget-body">
-                                            <div class="widget-main">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod
-                                                <span class="blue bolder">high life</span>
-                                                accusamus terry richardson ad squid &hellip;
+                                            <div class="widget-box transparent">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="widget-title smaller"><?= $school[0] ?></h5>
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <?= $school[1] ?>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div><!-- /.timeline-items -->
+                                <?php endif ?>
+                            </div><!-- /.timeline-container -->
+
+                            <button class="btn btn-info btn-sm" type="button" data-toggle="collapse" data-target="#add_school_profile" aria-expanded="false" aria-controls="add_school_profile">Thêm học bạ</button>
+                            <div class="collapse" id="add_school_profile">
+                                <div class="clear"></div>
+                                <div class="space"></div>
+                                <form action="" id="add_school_profile_form" class="form-inline">
+                                    
+                                    <input type="text" class="grid3" name="school_name" placeholder="Đại học bách khoa hà nội" required>
+                                
+                                    <input class="date-picker grid3" name="school_date" type="text" placeholder="15-05-2017" required>
+                                    
+                                    <button class="btn btn-info btn-sm" type="submit">Thêm</button>    
+                                </form>
+                            </div>
+                        </div>
+                        <div class="horizontal_line">
+                            <div class="line_left"></div>
+                            <div class="left_circle"></div>
+                            <div class="central_circle"></div>
+                            <div class="right_circle"></div>
+                            <div class="line_right"></div>
+                        </div>
+                        <div class="block">
+                            <h2>Bằng cấp</h2>
+                            <div class="col-xs-6 col-sm-4 col-md-3">
+                                <div class="thumbnail search-thumbnail">
+                                    <img class="media-object" data-src="holder.js/100px200?theme=gray" />
+                                    <div class="caption">
+                                        <div class="clearfix">
+                                            <span class="pull-right label label-grey info-label">Tokyo</span>
+                                        </div>
+
+                                        <h3 class="search-title">
+                                            <a href="#" class="blue">Thumbnail label</a>
+                                        </h3>
+                                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam ...</p>
                                     </div>
                                 </div>
-                            </div><!-- /.timeline-items -->
-                        </div><!-- /.timeline-container -->
+                            </div>
 
+                        </div>
                     </div>
                     <!-- /Education -->
                     

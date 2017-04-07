@@ -246,5 +246,32 @@ jQuery(function($) {
 		}).css('color', barColor);
 	});
 
+	// Date picker setting up
+	$(".date-picker").datepicker({format: 'dd-mm-yyyy'});
+
+	// 
+	$("#add_school_profile_form").submit(function() {
+		var form_data = $(this).serializeArray();
+		add_new_meta_data('school_profiles', form_data[1].value + "_" + form_data[0].value);
+		$("#Education .timeline-container").append(`<div class="timeline-items">
+                    <div class="timeline-item clearfix">
+                        <div class="timeline-info">
+                            <i class="timeline-indicator ace-icon fa fa-graduation-cap btn btn-primary no-hover green"></i>
+                        </div>
+
+                        <div class="widget-box transparent">
+                            <div class="widget-header widget-header-small">
+                                <h5 class="widget-title smaller">`+form_data[1].value+`</h5>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">`+form_data[0].value+`</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`);
+		$("#add_school_profile").collapse('toggle');
+		return false;
+	});
 
 });
