@@ -136,6 +136,32 @@ jQuery(function($) {
         }       
     });
 
+
+    // Thêm mới bằng cấp, chứng chỉ
+	$('#add_new_diploma').editable({
+        type: 'text',
+        name: 'add_new_diploma',
+        success: function(response, newValue) {
+        	$("#diplomaes").append(`<div class="col-xs-6 col-sm-4 col-md-3">
+                                    <div class="thumbnail search-thumbnail">
+                                    	<span class="search-promotion label label-danger arrowed-in arrowed-in-right" data-diploma="`+newValue+`">
+                                    		Xóa chứng chỉ
+                                    	</span>
+                                        <img class="media-object" src="assets/img/diploma_2.png" />
+                                        <div class="caption">
+                                            <div class="clearfix">
+                                                <p>
+                                                    `+newValue+`
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`);
+            add_new_meta_data('diplomaes', newValue);
+            $('#add_new_diploma').text("Thêm chứng chỉ mới!");
+        }       
+    });
+
     // Ẩn hiện nút xóa hobbie khi hover chuột qua
     $("#hobbies .single_hobbie").hover(function() {
     	$(this).find('span').toggleClass('hide');
@@ -171,6 +197,15 @@ jQuery(function($) {
     	$(this).parent().remove();
     	delete_meta_data("philosophies", hobbie);
     });
+
+    // Xóa một tính cách
+    $("#diplomaes").on('click', '.search-promotion.label.label-danger', function(event) {
+    	var diploma = $(this).attr('data-diploma').trim();
+    	$(this).parent().parent().remove();
+    	delete_meta_data("diplomaes", diploma);
+    });
+
+
 
     // Cập nhật thông tin phụ của user
     var update_cv_data = function (key, value){

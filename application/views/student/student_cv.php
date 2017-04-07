@@ -233,21 +233,44 @@
                             <div class="line_right"></div>
                         </div>
                         <div class="block">
-                            <h2>Bằng cấp</h2>
-                            <div class="col-xs-6 col-sm-4 col-md-3">
-                                <div class="thumbnail search-thumbnail">
-                                    <img class="media-object" data-src="holder.js/100px200?theme=gray" />
-                                    <div class="caption">
-                                        <div class="clearfix">
-                                            <span class="pull-right label label-grey info-label">Tokyo</span>
-                                        </div>
-
-                                        <h3 class="search-title">
-                                            <a href="#" class="blue">Thumbnail label</a>
-                                        </h3>
-                                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam ...</p>
-                                    </div>
+                            <h2>Chứng chỉ</h2>
+                            <div class="row" id="diplomaes">
+                                <?php if (isset($user_meta['diplomaes']) && is_array($user_meta['diplomaes'])): ?>
+                                    <?php foreach ($user_meta['diplomaes'] as $diploma): ?>
+                                        <div class="col-xs-6 col-sm-4 col-md-3">
+                                            <div class="thumbnail search-thumbnail">
+                                                <span class="search-promotion label label-danger arrowed-in arrowed-in-right" data-diploma="<?= $diploma ?>">Xóa chứng chỉ</span>
+                                                <img class="media-object" src="assets/img/diploma_2.png" />
+                                                <div class="caption">
+                                                    <div class="clearfix">
+                                                        <p>
+                                                            <?= $diploma ?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 </div>
+                                    <?php endforeach ?>
+                                <?php elseif (isset($user_meta['diplomaes']) && !is_array($user_meta['diplomaes'])): ?>
+                                    <div class="col-xs-6 col-sm-4 col-md-3">
+                                        <div class="thumbnail search-thumbnail">
+                                            <span class="search-promotion label label-danger arrowed-in arrowed-in-right" data-diploma="$user_meta['diplomaes']">Xóa chứng chỉ</span>
+                                            <img class="media-object" src="assets/img/diploma_2.png" />
+                                            <div class="caption">
+                                                <div class="clearfix">
+                                                    <p>
+                                                        <?= $user_meta['diplomaes'] ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                <?php endif ?>
+                                
+                            </div>
+                            <div class="clear">
+                                <span id="add_new_diploma">Thêm chứng chỉ mới!</span>
                             </div>
 
                         </div>
