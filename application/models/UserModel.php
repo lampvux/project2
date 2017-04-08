@@ -204,6 +204,38 @@ class UserModel extends CI_Model {
 	}
 
 
+	/**
+	 * Lấy toàn bộ thông tin của các skills
+	 * @return [mảng dữ liệu chứa thông tin của toàn bộ các skills]
+	 */
+	public function get_skills(){
+		return $this->db->select('*')->get(SKILL_TABLE)->result_array();
+	}
+
+
+	/**
+	 * Lấy thông tin chính của user
+	 * @param  [array|string] $where [Điều kiện lấy thông tin]
+	 * @return [array]        [mảng thông tin]
+	 */
+	public function get_skill_by_condition($where){
+		return $this->db->where($where)->get(SKILL_TABLE)->result_array();
+	}
+
+
+	/**
+	 * Thêm skill
+	 * @param [array] $data [chứa thông tin cơ bản của skill]
+	 * EX: $data = [
+	 * 		'skill_name' 	=> 'Nguyễn Tiên Đạt', 
+	 * 		'cat_id' 		=> '123'
+	 * 	]
+	 */
+	public function add_new_skill($data){
+		return $this->db->insert(SKILL_TABLE, $data);
+	}
+
+
 }
 
 /* End of file UserModel.php */

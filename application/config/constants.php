@@ -99,6 +99,7 @@ define('USER_META_TABLE', 'user_meta'); // Lưu thông tin phụ của người 
 define('NOTIFIATION_TABLE', 'notification'); // Lưu các thông báo mới 
 define('MESSAGE_TABLE', 'message'); // Lưu tin nhắn giữa các user trên hệ thống
 define('SETTING_TABLE', 'setting'); // Lưu các setting cho site 
+define('SKILL_TABLE', 'skill'); // Lưu thông tin các kỹ năng
 
 
 // ================ USER TYPE =====================

@@ -132,7 +132,7 @@
 #main_container li{
 	list-style: none !important;
 }
-#main_container li:before {
+#main_container #Profile li:before {
     content: "• ";
     color: #837c9a;
     font-size: 20px;

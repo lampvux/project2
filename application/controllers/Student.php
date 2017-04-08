@@ -82,6 +82,40 @@ class Student extends MY_Controller {
 	}
 
 
+	public function get_all_skills(){
+		$action = $this->input->post('action');
+		if (isset($action) && $action == 'get_skills') {
+			$skills = $this->UserModel->get_skills();
+			$res = "";
+			if (count($skills)) {
+				foreach ($skills as $skill) {
+					$res .= $skill['skill_name'] . ",";
+				}
+			}
+			echo $res;
+		}
+	}
+
+
+	public function add_new_skill(){
+		$action = $this->input->post('action');
+		if (isset($action) && $action == 'add_new_skill') {
+			$data = [
+				'skill_name' => $this->input->post('skill_name'),
+				'cat_id' => '0'
+			];
+			$skill = $this->UserModel->get_skill_by_condition(['skill_name' => $data['skill_name'] ]);
+			if (empty($skill)) {
+				$this->UserModel->add_new_skill($data);
+			}
+			$this->UserModel->add_user_meta([
+				'meta_key' => "skills",
+				'meta_value' => $data['skill_name'] . "_" . $this->input->post('percent') . "_" . $this->input->post('color'),
+				'uid' => $this->session->uid
+			]);
+		}
+	}
+
 }
 
 /* End of file Student.php */

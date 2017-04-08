@@ -221,7 +221,7 @@
                                 <?php endif ?>
                             </div><!-- /.timeline-container -->
 
-                            <button class="btn btn-info btn-sm" type="button" data-toggle="collapse" data-target="#add_school_profile" aria-expanded="false" aria-controls="add_school_profile">Thêm học bạ</button>
+                            <button class="btn btn-info btn-sm" type="button" data-text-default="Thêm học bạ" data-toggle="collapse" data-target="#add_school_profile" aria-expanded="false" aria-controls="add_school_profile">Thêm học bạ</button>
                             <div class="collapse" id="add_school_profile">
                                 <div class="clear"></div>
                                 <div class="space"></div>
@@ -259,7 +259,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                </div>
+                                        </div>
                                     <?php endforeach ?>
                                 <?php elseif (isset($user_meta['diplomaes']) && !is_array($user_meta['diplomaes'])): ?>
                                     <div class="col-xs-6 col-sm-4 col-md-3">
@@ -292,32 +292,85 @@
                     <div id="Skills" class="cv_content hide">
                         <div class="block">
                             <h2>Kỹ năng</h2>
+                            <div class="clearfix" id="list_skills">
+                                <?php if (isset($user_meta['skills']) && is_array($user_meta['skills'])): ?>
+                                    <?php foreach ($user_meta['skills'] as $skill): ?>
+                                        <?php $skill = explode('_', $skill); ?>
+                                        <div class="grid4 center">
+                                            <div class="easy-pie-chart percentage" data-percent="<?= $skill[1] ?>" data-color="<?= $skill[2] ?>">
+                                                <span class="percent"><?= $skill[1] ?></span>%
+                                            </div>
+
+                                            <div class="space-2"></div>
+                                            <?= $skill[0] ?>
+                                        </div>
+                                    <?php endforeach ?>
+                                <?php elseif (isset($user_meta['skills']) && !is_array($user_meta['skills'])): ?>
+                                     <?php $skill = explode('_', $user_meta['skills']); ?>
+                                    <div class="grid4 center">
+                                        <div class="easy-pie-chart percentage" data-percent="<?= $skill[1] ?>" data-color="<?= $skill[2] ?>">
+                                            <span class="percent"><?= $skill[1] ?></span>%
+                                        </div>
+
+                                        <div class="space-2"></div>
+                                        <?= $skill[0] ?>
+                                    </div>
+                                <?php endif ?>
+                            </div>
                             <div class="clearfix">
-                                <div class="grid4 center">
-                                    <div class="easy-pie-chart percentage" data-percent="45" data-color="#CA5952">
-                                        <span class="percent">45</span>%
-                                    </div>
-
-                                    <div class="space-2"></div>
-                                    Graphic Design
-                                </div>
-
-                                <div class="grid4 center">
-                                    <div class="center easy-pie-chart percentage" data-percent="90" data-color="#59A84B">
-                                        <span class="percent">90</span>%
-                                    </div>
-
-                                    <div class="space-2"></div>
-                                    HTML5 & CSS3
-                                </div>
-
-                                <div class="grid4 center">
-                                    <div class="center easy-pie-chart percentage" data-percent="80" data-color="#9585BF">
-                                        <span class="percent">80</span>%
-                                    </div>
-
-                                    <div class="space-2"></div>
-                                    Javascript/jQuery
+                                <div class="space"></div>
+                                <button class="btn btn-info btn-sm" type="button" data-text-default="Thêm kỹ năng" data-toggle="collapse" data-target="#add_new_skill" aria-expanded="false" aria-controls="add_new_skill">Thêm kỹ năng</button>
+                                <div class="collapse col-xs-12" id="add_new_skill">
+                                    <div class="clear"></div>
+                                    <div class="space"></div>
+                                    <form action="" id="add_new_skill_form" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="skill_name">Chọn kỹ năng(*)</label>
+                                            <input type="text" name="skill_name" id="skill_name" placeholder="" class="form-control" required>
+                                        </div>
+                                        <div class="form-group" id="slider-eq">
+                                            <label for="percent">Mức độ thành thạo(*)</label>
+                                            <input type="hidden" name="percent" id="percent" required>
+                                            <span class="ui-slider-green ui-slider-small"></span>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="simple-colorpicker-1">Chọn màu hiển thị</label>
+                                            <select id="simple-colorpicker-1" name="display_color" class="hide">
+                                                <option value="#ac725e">#ac725e</option>
+                                                <option value="#d06b64">#d06b64</option>
+                                                <option value="#f83a22">#f83a22</option>
+                                                <option value="#fa573c">#fa573c</option>
+                                                <option value="#ff7537">#ff7537</option>
+                                                <option value="#ffad46" selected="">#ffad46</option>
+                                                <option value="#42d692">#42d692</option>
+                                                <option value="#16a765">#16a765</option>
+                                                <option value="#7bd148">#7bd148</option>
+                                                <option value="#b3dc6c">#b3dc6c</option>
+                                                <option value="#fbe983">#fbe983</option>
+                                                <option value="#fad165">#fad165</option>
+                                                <option value="#92e1c0">#92e1c0</option>
+                                                <option value="#9fe1e7">#9fe1e7</option>
+                                                <option value="#9fc6e7">#9fc6e7</option>
+                                                <option value="#4986e7">#4986e7</option>
+                                                <option value="#9a9cff">#9a9cff</option>
+                                                <option value="#b99aff">#b99aff</option>
+                                                <option value="#c2c2c2">#c2c2c2</option>
+                                                <option value="#cabdbf">#cabdbf</option>
+                                                <option value="#cca6ac">#cca6ac</option>
+                                                <option value="#f691b2">#f691b2</option>
+                                                <option value="#cd74e6">#cd74e6</option>
+                                                <option value="#a47ae2">#a47ae2</option>
+                                                <option value="#555">#555</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <button class="btn btn-info btn-sm" type="submit">
+                                                Thêm
+                                            </button>    
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
