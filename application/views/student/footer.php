@@ -58,6 +58,8 @@
 <script src="assets/js/ace-editable.min.js"></script>
 <script src="assets/js/jquery.maskedinput.min.js"></script>
 <script src="assets/js/jquery-typeahead.js"></script>
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/daterangepicker.min.js"></script>
 
 <!-- ace scripts -->
 <script src="assets/js/ace-elements.min.js"></script>

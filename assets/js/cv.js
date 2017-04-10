@@ -215,6 +215,15 @@ jQuery(function($) {
 
 
 
+    // Xóa một kinh nghiệm
+    $("#expers .timeline-container").on('click', '.widget-toolbar a', function(event) {
+    	var school_profile = $(this).attr('data-exper').trim();
+    	$(this).parent().parent().parent().parent().remove();
+    	delete_meta_data("expers", school_profile);
+    });
+
+
+
     // Cập nhật thông tin phụ của user
     var update_cv_data = function (key, value){
     	$.post(
@@ -362,6 +371,36 @@ jQuery(function($) {
 		return false;
 	});
 
+	// Thêm Kinh nghiệm
+	$("#add_new_exper_form").submit(function() {
+		var form_data = $(this).serializeArray();
+		add_new_meta_data('expers', form_data[0].value + "_" + form_data[1].value);
+		$("#expers .timeline-container").append(`<div class="timeline-items">
+                    <div class="timeline-item clearfix">
+                        <div class="timeline-info">
+                            <i class="timeline-indicator ace-icon fa fa-bar-chart no-hover green"></i>
+                        </div>
+
+                        <div class="widget-box transparent">
+                            <div class="widget-header widget-header-small">
+                                <h5 class="widget-title smaller">`+form_data[0].value+`</h5>
+                                <span class="widget-toolbar">
+                                    <a data-exper="`+form_data[0].value + "_" + form_data[1].value+`">
+                                        <i class="ace-icon fa fa-times"></i>
+                                    </a>     
+                                </span>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">`+form_data[1].value+`</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`);
+		$("#add_new_exper").collapse('toggle');
+		return false;
+	});
+
 	//typeahead.js
 	//example taken from plugin's page at: https://twitter.github.io/typeahead.js/examples/
 	var substringMatcher = function() {
@@ -452,4 +491,47 @@ jQuery(function($) {
 		);
 		return false;
 	});
+
+	//to translate the daterange picker, please copy the "examples/daterange-fr.js" contents here before initialization
+	$('input.date-range-picker').daterangepicker({
+		'applyClass' : 'btn-sm btn-success',
+		'cancelClass' : 'btn-sm btn-default',
+		locale: {
+			"separator": " => ",
+			"applyLabel": 'Chọn',
+			"cancelLabel": 'Hủy',
+			"format": 'DD-MM-YYYY',
+			"fromLabel": "Từ",
+	        "toLabel": "Đến",
+	        "customRangeLabel": "Tùy chọn",
+	        "daysOfWeek": [
+	            "CN",
+	            "Hai",
+	            "Ba",
+	            "Tư",
+	            "Năm",
+	            "Sáu",
+	            "Bảy"
+	        ],
+	        "monthNames": [
+	            "Tháng Giêng",
+	            "Tháng Hai",
+	            "Tháng Ba",
+	            "Tháng Tư",
+	            "Tháng Năm",
+	            "Tháng Sáu",
+	            "Tháng Bảy",
+	            "Tháng Tám",
+	            "Tháng Chín",
+	            "Tháng Mười",
+	            "Tháng Mười Một",
+	            "Tháng Chạp"
+	        ],
+	        "firstDay": 1
+		}
+	})
+	.prev().on(ace.click_event, function(){
+		$(this).next().focus();
+	});
+
 });

@@ -47,9 +47,6 @@
                             <li><span class="no_border" href="#Profile">Profile</span></li>
                             <li><span href="#Education">Education</span></li>
                             <li><span href="#Skills">Skills</span></li>
-                            <li><span href="#Work_Experience">Work Experience</span></li>
-                            <li><span href="#Featured_Projects">Featured Projects</span></li>
-                            <li><span href="#Awards">Awards</span></li>
                         </ul>
                     </div>
                 </div>
@@ -374,30 +371,104 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="horizontal_line">
+                            <div class="line_left"></div>
+                            <div class="left_circle"></div>
+                            <div class="central_circle"></div>
+                            <div class="right_circle"></div>
+                            <div class="line_right"></div>
+                        </div>
 
+                        <div class="block" id="expers">
+                            <h2>Kinh nghiệm làm việc</h2>
+                            <div class="timeline-container">
+                                <?php if (isset($user_meta['expers']) && is_array($user_meta['expers'])): ?>
+                                    <?php foreach ($user_meta['expers'] as $exper): ?>
+                                        <?php $exper = explode('_', $exper); ?>
+                                        <div class="timeline-items">
+                                            <div class="timeline-item clearfix">
+                                                <div class="timeline-info">
+                                                    <i class="timeline-indicator ace-icon fa fa-bar-chart btn no-hover green"></i>
+                                                </div>
+
+                                                <div class="widget-box transparent">
+                                                    <div class="widget-header widget-header-small">
+                                                        <h5 class="widget-title smaller"><?= $exper[0] ?></h5>
+                                                        <span class="widget-toolbar">
+                                                            <a data-exper="<?= $exper[0] ?>_<?= $exper[1] ?>">
+                                                                <i class="ace-icon fa fa-times"></i>
+                                                            </a>     
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="widget-body">
+                                                        <div class="widget-main">
+                                                            <?= $exper[1] ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.timeline-items -->
+                                    <?php endforeach ?>
+                                <?php elseif (isset($user_meta['expers']) && !is_array($user_meta['expers'])): ?>
+                                    <?php $exper = explode('_', $user_meta['expers']); ?>
+                                    <div class="timeline-items">
+                                        <div class="timeline-item clearfix">
+                                            <div class="timeline-info">
+                                                <i class="timeline-indicator ace-icon fa fa-bar-chart btn no-hover green"></i>
+                                            </div>
+                                        
+                                            <div class="widget-box transparent">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="widget-title smaller"><?= $exper[0] ?></h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-exper="<?= $user_meta['expers'] ?>">
+                                                            <i class="ace-icon fa fa-times"></i>
+                                                        </a>     
+                                                    </span>
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <?= $exper[1] ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.timeline-items -->
+                                <?php endif ?>
+                            </div><!-- /.timeline-container -->
+                            <div class="clearfix">
+                                <div class="space"></div>
+                                <button class="btn btn-info btn-sm" type="button" data-text-default="Thêm kinh nghiệm" data-toggle="collapse" data-target="#add_new_exper" aria-expanded="false" aria-controls="add_new_exper">Thêm kinh nghiệm</button>
+                                <div class="collapse col-xs-12" id="add_new_exper">
+                                    <div class="clear"></div>
+                                    <div class="space"></div>
+                                    <form action="" class="form-horizontal" id="add_new_exper_form">
+                                        <div class="form-group">
+                                            <label for="id-date-range-picker-1">
+                                                Chọn khoảng thời gian
+                                            </label>
+                                            <input class="form-control date-range-picker" type="text" name="time-period" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="company">
+                                                Tên công ty/cơ sở làm việc
+                                            </label>
+                                            <input type="text" name="company" id="company" class="form-control" >
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Thêm</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- /Skills -->
                     
 
-                    <!-- Work_Experience -->
-                    <div id="Work_Experience" class="cv_content hide">
-                        <h1>Work_Experience</h1>
-                    </div>
-                    <!-- /Work_Experience -->
-                    
-
-                    <!-- Featured_Projects -->
-                    <div id="Featured_Projects" class="cv_content hide">
-                        <h1>Featured_Projects</h1>
-                    </div>
-                    <!-- /Featured_Projects -->
-                    
-
-                    <!-- Awards -->
-                    <div id="Awards" class="cv_content hide">
-                        <h1>Awards</h1>
-                    </div>
-                    <!-- /Awards -->
                 </div>
             </div>
         

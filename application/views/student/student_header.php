@@ -18,6 +18,7 @@
 		<link rel="stylesheet" href="assets/css/jquery.gritter.min.css" />
 		<link rel="stylesheet" href="assets/css/select2.min.css" />
 		<link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css" />
+		<link rel="stylesheet" href="assets/css/daterangepicker.min.css" />
 		<link rel="stylesheet" href="assets/css/bootstrap-editable.min.css" />
 		<link rel="stylesheet" href="assets/css/bootstrap-colorpicker.min.css" />
 

@@ -371,3 +371,7 @@
 .search-promotion.label.label-danger{
     cursor: pointer;
 }
+
+.widget-toolbar a,.widget-toolbar a i{
+    cursor: pointer;
+}
