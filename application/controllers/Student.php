@@ -8,16 +8,16 @@ class Student extends MY_Controller {
 	}
 
 	public function index(){
-		self::load_header();
+		self::load_header(true);
 		$this->load->view('student/student_cv');
 		$this->load->view('student/footer');
 	}
 
 
-	protected function load_header(){
+	protected function load_header($is_student_cv = false, $title = "Hồ sơ"){
 		$data['user'] = $this->UserModel->get_user_data(['uid'=>$this->session->uid])[0];
 		$data['user_meta'] = $this->UserModel->get_user_meta(['uid'=>$this->session->uid]);
-		$data['title'] = $data['user']['fullname'] != '' ? $data['user']['fullname'] . ' - Hồ sơ' : $data['user']['username'] . ' - Hồ sơ' ;
+		$data['title'] = $data['user']['fullname'] != '' ? $data['user']['fullname'] . ' - ' . $title : $data['user']['username'] . ' - ' . $title ;
 		$data['ci_nonce'] = $this->ci_nonce;
 		$data['is_student_cv'] = true;
 		$this->load->view('student/student_header', $data);
@@ -114,6 +114,45 @@ class Student extends MY_Controller {
 				'uid' => $this->session->uid
 			]);
 		}
+	}
+
+
+	public function add_aspiration(){
+		
+	}
+
+
+	public function view_topic($page = 0){
+		self::load_header(false, 'Xem topic');
+		$data = [];
+		// $data['topics'] = $this->UserModel->get_topic($page);
+		$this->load->library('pagination');
+		
+		$config['base_url'] = base_url() . "student/view_topic/";
+		$config['total_rows'] = $this->UserModel->count_all_table(TOPIC_TABLE);
+		$config['per_page'] = PER_PAGE;
+		$config['num_links'] = 5;
+		$config['full_tag_open'] = '<p>';
+		$config['full_tag_close'] = '</p>';
+		$config['first_link'] = 'First';
+		$config['first_tag_open'] = '<div>';
+		$config['first_tag_close'] = '</div>';
+		$config['last_link'] = 'Last';
+		$config['last_tag_open'] = '<div>';
+		$config['last_tag_close'] = '</div>';
+		$config['next_link'] = '&gt;';
+		$config['next_tag_open'] = '<div>';
+		$config['next_tag_close'] = '</div>';
+		$config['prev_link'] = '&lt;';
+		$config['prev_tag_open'] = '<div>';
+		$config['prev_tag_close'] = '</div>';
+		$config['cur_tag_open'] = '<b>';
+		$config['cur_tag_close'] = '</b>';
+		
+		$this->pagination->initialize($config);
+		
+		// $data['pagination'] = $this->pagination->create_links();
+		$this->load->view('student/footer');
 	}
 
 }

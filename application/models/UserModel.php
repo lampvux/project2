@@ -235,6 +235,14 @@ class UserModel extends CI_Model {
 		return $this->db->insert(SKILL_TABLE, $data);
 	}
 
+	public function get_topic($offset = 0){
+		$limit = $offset . PER_PAGE;
+		return $this->db->select('*')->where(['is_approved' => '1'])->get(TOPIC_TABLE, $offset, $limit)->result_array();
+	}
+
+	public function count_all_table($table){
+		return $this->db->get($table)->num_rows();
+	}
 
 }
 

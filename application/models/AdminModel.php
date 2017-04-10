@@ -35,6 +35,17 @@ class AdminModel extends CI_Model {
     public function check_valid_domain($data, $where){
           
         }
+    /**
+     * get tất cả user
+     * @param 
+     * EX: xem user trong site
+     * @return Boolean
+     */
+    public function get_user($where = 'uid > 0', $limit = 0, $offset = 0){
+        $offset = $offset > 0 ? $offset : 0 ;
+        $limit = $limit > 0 ? $limit : PER_PAGE ;       
+        return $this->db->select('*')->where($where)->get(USER_TABLE, $offset, $limit)->result_array();
+        }
         
     /**
      * Lấy Điểm của sinh viên
@@ -42,8 +53,11 @@ class AdminModel extends CI_Model {
      * EX: 
      * @return Boolean
      */
-    public function get_mark($where){
-        return $this->db->where($where)->get(MARK_TABLE)->result_array();
+    public function get_mark($where = 'mark_id > 0', $limit = 0, $offset = 0){
+        $offset = $offset > 0 ? $offset : 0 ;
+        $limit = $limit > 0 ? $limit : PER_PAGE ; 
+        return $this->db->select('*')->where($where)->get(MARK_TABLE, $offset, $limit)->result_array();
+        
         }
 
     /**
@@ -75,7 +89,9 @@ class AdminModel extends CI_Model {
     public function update_setting($data,$where){       
         return $this->db->where($where)->update(SETTING_TABLE, $data);
         }
-     
+    public function delete_user($where) {
+        return $this->UserModel->delete_user($where);
+    }
             
 }
 
