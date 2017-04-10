@@ -44,9 +44,9 @@
                     <div class="header_menu_container col-sm-8 col-xs-12">
                         <div class="clear"></div>
                         <ul class="header_menu horizontal_list">
-                            <li><span class="no_border" href="#Profile">Profile</span></li>
-                            <li><span href="#Education">Education</span></li>
-                            <li><span href="#Skills">Skills</span></li>
+                            <li><span class="no_border" href="#Profile">Hồ sơ</span></li>
+                            <li><span href="#Education">Học bạ / Chứng chỉ</span></li>
+                            <li><span href="#Skills">Kỹ năng và kinh nghiệm</span></li>
                         </ul>
                     </div>
                 </div>
