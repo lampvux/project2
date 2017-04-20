@@ -20,8 +20,11 @@ class Login extends CI_Controller {
         
         // Load models
         $this->load->model('UserModel');
-        if (self::login_with_cookie()) {
-            redirect('profile','refresh');
+        $username   = trim(get_cookie('username'));
+        if ($username !== NULL && $username !== '') {
+            if (self::login_with_cookie()) {
+                redirect('profile','refresh');
+            }
         }
     }
 
@@ -210,9 +213,12 @@ class Login extends CI_Controller {
         $username   = trim(get_cookie('username'));
         $password   = trim(get_cookie('password'));
         $uid        = trim(get_cookie('uid'));
-        $user       = $this->UserModel->get_user_data(['username' => $username, 'password' => $password]);
+        
+        $user = $this->UserModel->get_user_data(['username' => $username, 'password' => $password]);
         if(count($user)){
             if ($user[0]['uid'] == $uid) {
+                $this->session->set_flashdata('type', 'success');
+                $this->session->set_flashdata('msg', 'Đăng nhập thành công bằng cookie');
                 $this->session->set_userdata('is_logged_in', true);
                 $this->session->set_userdata('uid', $user[0]['uid']);
                 $this->session->set_userdata('user_type', $user[0]['user_type']);

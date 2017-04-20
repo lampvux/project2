@@ -17,9 +17,11 @@ class MY_Controller extends CI_Controller {
         }
         $this->ci_nonce = $this->session->ci_nonce;
         $this->load->model('UserModel');
-
-        if (!self::login_with_cookie()) {
-            redirect('login','refresh');
+        $username   = trim(get_cookie('username'));
+        if ($username !== NULL && $username !== '') {
+            if (!self::login_with_cookie()) {
+                redirect('login');
+            }
         }
 
         $this->url = base_url(uri_string()); 
