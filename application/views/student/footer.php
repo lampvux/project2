@@ -61,7 +61,7 @@
 <script src="assets/js/moment.min.js"></script>
 <script src="assets/js/daterangepicker.min.js"></script>
 <script src="assets/js/bootstrap-multiselect.min.js"></script>
-
+<script src="assets/js/bootstrap-tag.min.js"></script>
 <!-- ace scripts -->
 <script src="assets/js/ace-elements.min.js"></script>
 <script src="assets/js/ace.min.js"></script>
@@ -114,27 +114,17 @@
 			if($(this).attr('href') == "<?= $this->session->current_page ?>" )
 				$(this).parent('li').addClass('active');
 		});
-		$('.multiselect').multiselect({
-			 enableFiltering: true,
-			 enableHTML: true,
-			 nonSelectedText: "Chưa chọn gì cả",
-			 buttonClass: 'btn btn-white btn-primary',
-			 templates: {
-				button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
-				ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-				filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-				filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
-				li: '<li><a tabindex="0"><label></label></a></li>',
-		        divider: '<li class="multiselect-item divider"></li>',
-		        liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-			 }
-			});
-
+		
 	});
 </script>
 <?php if (isset($is_student_cv) && $is_student_cv): ?>
 	<script src="assets/js/cv.js"></script>
 <?php endif; ?>
+
+<?php if (isset($is_topic_page) && $is_topic_page): ?>
+	<script src="assets/js/topic.js"></script>
+<?php endif; ?>
+
 
 </body>
 </html>

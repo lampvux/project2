@@ -235,21 +235,28 @@ class UserModel extends CI_Model {
 		return $this->db->insert(SKILL_TABLE, $data);
 	}
 
-	public function get_topic($offset = 0){
+	public function get_topic($offset = 0, $where = NULL){
+		if (NULL == $where) {
+			$where = ['is_approved' => '1'];
+		}
 		$limit = $offset . PER_PAGE;
-		$res = $this->db->select('*')->from(TOPIC_TABLE)->join(USER_TABLE, USER_TABLE.'.uid='.TOPIC_TABLE. '.professor_id', 'left')->where(['is_approved' => '1'])->limit($limit, $offset)->get()->result_array();
+		$res = $this->db->select('*')->from(TOPIC_TABLE)->join(USER_TABLE, USER_TABLE.'.uid='.TOPIC_TABLE. '.professor_id', 'left')->where($where)->limit($limit, $offset)->order_by('topic.date_create', 'DESC')->get()->result_array();
 		if (count($res)) {
 			foreach ($res as &$topic) {
 				$topic['skills_required'] = $this->db->select('skill_name')->where('skill_id IN ('.$topic['skills_required'].')')->get(SKILL_TABLE)->result_array();
 				$topic['user_avatar'] = self::get_user_meta(['uid' => $topic['professor_id'], 'meta_key' => 'avatar']);
+				$topic['company_name'] = $this->db->select('company_name')->where('company_id='.$topic['company_id'])->get(COMPANY_TABLE)->result_array()[0]['company_name'];
 			}
 		}
 		return $res;
 
 	}
 
-	public function count_all_table($table){
-		return $this->db->get($table)->num_rows();
+	public function get_total_topic_valid($where = NULL){
+		if (NULL == $where) {
+			$where = ['is_approved' => '1'];
+		}
+		return $this->db->select('*')->where($where)->get(TOPIC_TABLE)->num_rows();
 	}
 
 	private function unique_multidim_array($array, $key) { 

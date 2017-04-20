@@ -22436,7 +22436,6 @@ input.typeahead.scrollable~.tt-menu {
 
 .pagination>li>a,
 .pagination>li>span {
-    border-radius: 50% !important;
     margin: 0 5px;
 }
 
@@ -22450,6 +22449,8 @@ input.typeahead.scrollable~.tt-menu {
     border: 1px solid #064e4e;
     padding: 5px 10px;
     border-radius: 20px;
+    display: block;
+    cursor: pointer;
 }
 
 .skill_list li {
@@ -22464,4 +22465,17 @@ input.typeahead.scrollable~.tt-menu {
 #topic-filter-form .multiselect.dropdown-toggle.btn.btn-white.btn-primary,
 #topic-filter-form .btn-group {
     width: 100%;
+}
+
+.media-body .btn.btn-white {
+    margin-left: 5px;
+    width: 20px;
+}
+
+.media-body .btn.btn-white[aria-expanded="false"]:before {
+    content: "+";
+}
+
+.media-body .btn.btn-white[aria-expanded="true"]:before {
+    content: "-";
 }

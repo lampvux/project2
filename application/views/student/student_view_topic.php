@@ -47,7 +47,6 @@
                                         <option value="<?= $company['company_id'] ?>">
                                             <?= $company['company_name'] ?>
                                         </option>
-                                        
                                     <?php endforeach ?>
                                 </select>
                             </div>
@@ -55,48 +54,63 @@
                         <div class="col-xs-4">
                             <label class="control-label col-xs-4 col-sm-3 no-padding-right" for="company-id">Kỹ năng: </label>
                             <div class="col-xs-8 col-sm-9">
-                                <input type="text" name="tags" id="search-tags" value="" placeholder="Tìm ảnh với từ khóa ..."/>
+                                <input type="text" id="skills_id" value="" placeholder="Nhập kỹ năng ..."/>
                             </div>                            
                         </div>
                     </form>
                 </div>
-                <?php if (count($topics)): ?>
-                    <?php foreach ($topics as $topic): ?>
-                        <div class="media search-media">
-                            <div class="media-left">
-                                <img class="media-object" src="assets/img/topic.png" />
-                            </div>
+                <div id="topics_content">
+                    <?php if (count($topics)): ?>
+                        <?php foreach ($topics as $topic): ?>
+                            <div class="media search-media">
+                                <div class="media-left">
+                                    <img class="media-object" src="assets/img/topic.png" />
+                                </div>
 
-                            <div class="media-body">
-                                <div>
-                                    <h4 class="media-heading">
-                                        <?= $topic['subject_name'] ?>
-                                    </h4>
-                                </div>
-                                <p>
-                                    <?= $topic['description'] ?>
-                                </p>
-                                <ul class="skill_list">
-                                    <?php foreach ($topic['skills_required'] as $skill): ?>
-                                        <li><?= $skill['skill_name'] ?></li>
-                                    <?php endforeach ?>
-                                </ul>
-                                <div class="search-actions text-center">
-                                    <img src="<?= @($topic['user_avatar']['avatar'] != '') ? $topic['user_avatar']['avatar'] : DEFAULT_AVATAR ?>" alt="Ảnh của <?= $topic['username'];?>" class="img-reponsive" with="70" height="70">
-                                    <div class="space"></div>
-                                    <span class="clearfix professor">
-                                        <?= ($topic['fullname'] != '') ? $topic['fullname'] :$topic['username'] ?>
-                                    </span>
-                                    
+                                <div class="media-body">
+                                    <div>
+                                        <h4 class="media-heading">
+                                            <?= $topic['subject_name'] ?>
+                                        </h4>
+                                    </div>
+                                    <p>
+                                        <strong>Công ty: </strong><?= $topic['company_name'];?>
+                                    </p>
+                                    <p class="clearfix">
+                                        <strong class="pull-left">Mô tả: </strong>
+                                        <?php $des = $topic['description'];
+                                        $first = implode(' ', array_slice(explode(' ', $des), 0, 20));
+                                        $rest = str_replace($first, '', $des); ?>
+                                        <span class="pull-left"><?= $first ?>  </span>
+                                        <?php if ($rest != ''): ?>
+                                            <span class="collapse pull-left" id="rest_of_<?= $topic['topic_id'] ?>">
+                                                <?= $rest ?>
+                                            </span>
+                                            <button class="btn btn-white btn-minier btn-primary" type="button" data-toggle="collapse" data-target="#rest_of_<?= $topic['topic_id'] ?>" aria-expanded="false" aria-controls="rest_of_<?= $topic['topic_id'] ?>"></button>
+                                        <?php endif ?>
+                                    </p>
+                                    <ul class="skill_list clearfix">
+                                        <?php foreach ($topic['skills_required'] as $skill): ?>
+                                            <li><?= $skill['skill_name'] ?></li>
+                                        <?php endforeach ?>
+                                    </ul>
+                                    <div class="search-actions text-center">
+                                        <img src="<?= @($topic['user_avatar']['avatar'] != '') ? $topic['user_avatar']['avatar'] : DEFAULT_AVATAR ?>" alt="Ảnh của <?= $topic['username'];?>" class="img-reponsive" with="70" height="70">
+                                        <div class="space"></div>
+                                        <span class="clearfix professor">
+                                            <?= ($topic['fullname'] != '') ? $topic['fullname'] :$topic['username'] ?>
+                                        </span>
+                                        
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="space"></div>
-                    <?php endforeach ?>
-                    <?= $pagination; ?>
-                <?php else: ?>
-                    <h2>Hiện chưa có topic nào</h2>
-                <?php endif; ?>
+                            <div class="space"></div>
+                        <?php endforeach ?>
+                        <?= $pagination; ?>
+                    <?php else: ?>
+                        <h2>Không có kết quả nào!</h2>
+                    <?php endif; ?>
+                </div>
             </div>
         
             <!-- /.user-cv -->
