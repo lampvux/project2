@@ -241,7 +241,7 @@ class UserModel extends CI_Model {
 		if (count($res)) {
 			foreach ($res as &$topic) {
 				$topic['skills_required'] = $this->db->select('skill_name')->where('skill_id IN ('.$topic['skills_required'].')')->get(SKILL_TABLE)->result_array();
-				// $topic['user_avatar'] = $this->db
+				$topic['user_avatar'] = self::get_user_meta(['uid' => $topic['professor_id'], 'meta_key' => 'avatar']);
 			}
 		}
 		return $res;

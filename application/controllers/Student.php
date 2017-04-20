@@ -145,18 +145,19 @@ class Student extends MY_Controller {
 	/**
 	 * Xem toàn bộ các chủ  đề
 	 */
-	public function view_topic($page = 0){
+	public function view_topic($page = 1){
 		self::load_header(false, 'Xem topic');
 		$data = [];
-		$data['topics'] = $this->UserModel->get_topic($page);
+		$page = $page == 'page' ? 1 : $page;
+		$data['topics'] = $this->UserModel->get_topic(($page-1)*6);
 		$data['companies'] = $this->UserModel->get_companies(); 
 		$data['teachers'] = $this->UserModel->get_curator_teachers();
 		$this->load->library('pagination');
 		
-		$config['base_url'] = base_url() . "student/view_topic/";
-		$config['total_rows'] = $this->UserModel->count_all_table(TOPIC_TABLE);
-		$config['per_page'] = PER_PAGE;
-		$config['num_links'] = 3;
+		$config['base_url'] 		= base_url() . "student/view_topic/page/";
+		$config['total_rows'] 		= $this->UserModel->count_all_table(TOPIC_TABLE);
+		$config['per_page'] 		= 6;
+		$config['num_links'] 		= 3;
 		$config['full_tag_open'] 	= '<ul class="pagination">';
 		$config['full_tag_close'] 	= '</ul>';
 		$config['first_link'] 		= 'Trang đầu';
@@ -175,7 +176,7 @@ class Student extends MY_Controller {
 		$config['cur_tag_close'] 	= '</a></li>';
 		$config['num_tag_open'] 	= '<li>';
 		$config['num_tag_close'] 	= '</li>';
-
+		$config['use_page_numbers'] = TRUE;
 
 		
 		$this->pagination->initialize($config);

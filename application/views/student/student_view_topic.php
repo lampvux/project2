@@ -76,16 +76,19 @@
                                 <p>
                                     <?= $topic['description'] ?>
                                 </p>
-                                <p>
-                                    <span class="professor">
-                                        <?= ($topic['fullname'] != '') ? $topic['fullname'] :$topic['username'] ?>
-                                    </span>
-                                </p>
                                 <ul class="skill_list">
                                     <?php foreach ($topic['skills_required'] as $skill): ?>
                                         <li><?= $skill['skill_name'] ?></li>
                                     <?php endforeach ?>
                                 </ul>
+                                <div class="search-actions text-center">
+                                    <img src="<?= @($topic['user_avatar']['avatar'] != '') ? $topic['user_avatar']['avatar'] : DEFAULT_AVATAR ?>" alt="Ảnh của <?= $topic['username'];?>" class="img-reponsive" with="70" height="70">
+                                    <div class="space"></div>
+                                    <span class="clearfix professor">
+                                        <?= ($topic['fullname'] != '') ? $topic['fullname'] :$topic['username'] ?>
+                                    </span>
+                                    
+                                </div>
                             </div>
                         </div>
                         <div class="space"></div>
