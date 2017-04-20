@@ -237,13 +237,44 @@ class UserModel extends CI_Model {
 
 	public function get_topic($offset = 0){
 		$limit = $offset . PER_PAGE;
-		return $this->db->select('*')->where(['is_approved' => '1'])->get(TOPIC_TABLE, $offset, $limit)->result_array();
+		$res = $this->db->select('*')->from(TOPIC_TABLE)->join(USER_TABLE, USER_TABLE.'.uid='.TOPIC_TABLE. '.professor_id', 'left')->where(['is_approved' => '1'])->limit($limit, $offset)->get()->result_array();
+		if (count($res)) {
+			foreach ($res as &$topic) {
+				$topic['skills_required'] = $this->db->select('skill_name')->where('skill_id IN ('.$topic['skills_required'].')')->get(SKILL_TABLE)->result_array();
+				// $topic['user_avatar'] = $this->db
+			}
+		}
+		return $res;
+
 	}
 
 	public function count_all_table($table){
 		return $this->db->get($table)->num_rows();
 	}
 
+	private function unique_multidim_array($array, $key) { 
+	    $temp_array = array(); 
+	    $i = 0; 
+	    $key_array = array(); 
+	    
+	    foreach($array as $val) { 
+	        if (!in_array($val[$key], $key_array)) { 
+	            $key_array[$i] = $val[$key]; 
+	            $temp_array[$i] = $val; 
+	        } 
+	        $i++; 
+	    } 
+	    return $temp_array; 
+	} 
+
+
+	/**
+	 * Lấy toàn bộ giáo viên quản lý
+	 * @return [mảng] [Dữ liệu của giáo viên]
+	 */
+	public function get_curator_teachers(){
+		return $this->db->select("uid, fullname, username")->where(['user_type' => CURATOR_TEACHER_USER_TYPE])->get(USER_TABLE)->result_array();
+	}
 }
 
 /* End of file UserModel.php */

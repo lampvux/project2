@@ -24,6 +24,9 @@ class Student extends MY_Controller {
 		$this->load->view('student/student_sidebar');
 	}
 
+	/**
+	 * Cập nhật dữ liệu CV đc gọi bới ajax từ giao diện
+	 */
 	public function update_cv_data(){
 		$meta_key = $this->input->post('meta_key');
 		if (isset($meta_key)) {
@@ -44,6 +47,9 @@ class Student extends MY_Controller {
 		}
 	}
 
+	/**
+	 * Cập nhật thông tin chính của người dùng
+	 */
 	public function update_main_data(){
 		$meta_key = $this->input->post('meta_key');
 		if (isset($meta_key)) {
@@ -57,6 +63,9 @@ class Student extends MY_Controller {
 	}
 
 
+	/**
+	 * Thêm thông tin phụ mới của người dùng
+	 */
 	public function add_new_meta_data(){
 		$meta_key = $this->input->post('meta_key');
 		if (isset($meta_key)) {
@@ -69,6 +78,10 @@ class Student extends MY_Controller {
 		}
 	}
 
+
+	/**
+	 * Xóa thông tin phụ
+	 */
 	public function delete_meta_data(){
 		$meta_key = $this->input->post('meta_key');
 		if (isset($meta_key)) {
@@ -82,6 +95,9 @@ class Student extends MY_Controller {
 	}
 
 
+	/**
+	 * Lấy tất cả các kỹ năng của sinh viên
+	 */
 	public function get_all_skills(){
 		$action = $this->input->post('action');
 		if (isset($action) && $action == 'get_skills') {
@@ -96,7 +112,9 @@ class Student extends MY_Controller {
 		}
 	}
 
-
+	/**
+	 * Thêm kỹ năng mới
+	 */
 	public function add_new_skill(){
 		$action = $this->input->post('action');
 		if (isset($action) && $action == 'add_new_skill') {
@@ -116,43 +134,95 @@ class Student extends MY_Controller {
 		}
 	}
 
-
+	/**
+	 * Xử lý đăng ký nguyện vọng
+	 */
 	public function add_aspiration(){
 		
 	}
 
 
+	/**
+	 * Xem toàn bộ các chủ  đề
+	 */
 	public function view_topic($page = 0){
 		self::load_header(false, 'Xem topic');
 		$data = [];
-		// $data['topics'] = $this->UserModel->get_topic($page);
+		$data['topics'] = $this->UserModel->get_topic($page);
+		$data['companies'] = $this->UserModel->get_companies(); 
+		$data['teachers'] = $this->UserModel->get_curator_teachers();
 		$this->load->library('pagination');
 		
 		$config['base_url'] = base_url() . "student/view_topic/";
 		$config['total_rows'] = $this->UserModel->count_all_table(TOPIC_TABLE);
 		$config['per_page'] = PER_PAGE;
-		$config['num_links'] = 5;
-		$config['full_tag_open'] = '<p>';
-		$config['full_tag_close'] = '</p>';
-		$config['first_link'] = 'First';
-		$config['first_tag_open'] = '<div>';
-		$config['first_tag_close'] = '</div>';
-		$config['last_link'] = 'Last';
-		$config['last_tag_open'] = '<div>';
-		$config['last_tag_close'] = '</div>';
-		$config['next_link'] = '&gt;';
-		$config['next_tag_open'] = '<div>';
-		$config['next_tag_close'] = '</div>';
-		$config['prev_link'] = '&lt;';
-		$config['prev_tag_open'] = '<div>';
-		$config['prev_tag_close'] = '</div>';
-		$config['cur_tag_open'] = '<b>';
-		$config['cur_tag_close'] = '</b>';
+		$config['num_links'] = 3;
+		$config['full_tag_open'] 	= '<ul class="pagination">';
+		$config['full_tag_close'] 	= '</ul>';
+		$config['first_link'] 		= 'Trang đầu';
+		$config['last_link'] 		= 'Trang cuối';
+		$config['next_link'] 		= '<i class="fa fa-chevron-right" aria-hidden="true"></i>';
+		$config['next_tag_open'] 	= '<li>';
+		$config['next_tag_close'] 	= '</li>';
+		$config['first_tag_open'] 	= '<li>';
+		$config['last_tag_open'] 	= '<li>';
+		$config['first_tag_close'] 	= '</li>';
+		$config['last_tag_close'] 	= '</li>';
+		$config['prev_link'] 		= '<i class="fa fa-chevron-left" aria-hidden="true"></i>';
+		$config['prev_tag_open'] 	= '<li>';
+		$config['prev_tag_close'] 	= '</li>';
+		$config['cur_tag_open'] 	= '<li class="active"><a href="#">';
+		$config['cur_tag_close'] 	= '</a></li>';
+		$config['num_tag_open'] 	= '<li>';
+		$config['num_tag_close'] 	= '</li>';
+
+
 		
 		$this->pagination->initialize($config);
 		
-		// $data['pagination'] = $this->pagination->create_links();
+		$data['pagination'] = $this->pagination->create_links();
+
+		$this->load->view('student/student_view_topic', $data);
 		$this->load->view('student/footer');
+	}
+
+	/**
+	 * Xem điểm sinh viên
+	 */
+	public function view_mark(){
+
+	}
+
+	/**
+	 * Menu quản lý công việc của sinh viên
+	 * Xem các task, cập nhật trạng thái công việc
+	 */
+	public function workspace(){
+
+	}
+
+	/**
+	 * Xem toàn bộ thông báo
+	 */
+	public function view_noti(){
+
+	}
+
+
+	/**
+	 * gửi khiếu nại
+	 * Có thể là yêu cầu sửa điểm, hoặc khiếu nại về quá trình thực tập
+	 */
+	public function add_complaint(){
+
+	}
+
+
+	/**
+	 * Gửi đánh giá về quá trình thực tập
+	 */
+	public function add_rate(){
+		
 	}
 
 }

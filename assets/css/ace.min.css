@@ -13944,7 +13944,7 @@ tr.detail-row>td {
     background: #76B774;
 }
 
-.login-box .toolbar>div{
+.login-box .toolbar>div {
     width: calc(100%/3);
     display: block;
     float: left;
@@ -13960,6 +13960,7 @@ tr.detail-row>td {
 .login-box .toolbar>div:nth-child(2) {
     text-align: center;
 }
+
 .login-box .toolbar>div:last-child {
     float: right;
     text-align: right;
@@ -22431,4 +22432,36 @@ input.typeahead.scrollable~.tt-menu {
 .login-layout input[type='email'] + i,
 .login-layout input[type='email']:focus + i {
     color: #fff;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+    border-radius: 50% !important;
+    margin: 0 5px;
+}
+
+#topics .media-object {
+    width: 50px;
+    height: 50px;
+}
+
+.professor,
+.skill_list li {
+    border: 1px solid #064e4e;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.skill_list li {
+    list-style: none;
+    display: inline-block;
+}
+
+.skill_list {
+    margin-left: 0;
+}
+
+#topic-filter-form .multiselect.dropdown-toggle.btn.btn-white.btn-primary,
+#topic-filter-form .btn-group {
+    width: 100%;
 }
