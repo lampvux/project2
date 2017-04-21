@@ -148,15 +148,50 @@ class Student extends MY_Controller {
 	public function view_topic($page = 1){
 		self::load_header(false, 'Xem topic');
 		$data = [];
+		$where = "";
+		if ($this->session->has_userdata('teachers_id') && $this->session->teachers_id !='') {
+			$where .= "professor_id IN (" . $this->session->teachers_id . ")";
+			$data['teachers_id'] = explode(",",$this->session->teachers_id);
+		}else{
+			$data['teachers_id'] = [];
+		}
+		
+
+		if ($this->session->has_userdata('companies_id') && $this->session->companies_id !='') {
+			if ($where != '') {
+	    		$where .= " OR ";
+    		}
+			$where .= "company_id IN (" . $this->session->companies_id . ")";
+			$data['companies_id'] = explode(",",$this->session->companies_id);
+		}else{
+			$data['companies_id'] = [];
+		}
+
+		if ($this->session->has_userdata('skills_id') && $this->session->skills_id != '') {
+			foreach (explode(',', $this->session->skills_id) as $key ) {
+				if ($where != '') {
+					$where .= " OR skills_required LIKE '%" . $key . "%'";
+				}else{
+					$where .= "skills_required LIKE '%" . $key . "%'";
+				}
+			}
+			$data['skills_name'] = $this->session->skills_name;
+		}else{
+			$data['skills_name'] = '';
+		}
+		if ($where != '') {
+			$where .= " AND ";
+		}
+		$where .= "is_approved=1";
 		$page = $page == 'page' ? 1 : $page;
-		$data['topics'] = $this->UserModel->get_topic(($page-1)*6);
+		$data['topics'] = $this->UserModel->get_topic(($page-1)*6, $where);
 		$data['companies'] = $this->UserModel->get_companies(); 
 		$data['teachers'] = $this->UserModel->get_curator_teachers();
 		$data['is_topic_page'] = true;
 		$this->load->library('pagination');
 		
 		$config['base_url'] 		= base_url() . "student/view_topic/page/";
-		$config['total_rows'] 		= $this->UserModel->get_total_topic_valid();
+		$config['total_rows'] 		= $this->UserModel->get_total_topic_valid($where);
 		$config['per_page'] 		= 6;
 		$config['num_links'] 		= 3;
 		$config['full_tag_open'] 	= '<ul class="pagination">';
@@ -196,7 +231,7 @@ class Student extends MY_Controller {
 		if (isset($action) && $action === 'search_topics') {
 			$teachers = $this->input->post('teachers');
 			$companies = $this->input->post('companies');
-			$skills = $this->input->post('skills');
+			$skills_name = $this->input->post('skills');
 			$where = "";
 			if ($teachers != '') {
 				$where .= ' professor_id IN ('. $teachers. ') ';
@@ -211,7 +246,30 @@ class Student extends MY_Controller {
 	    		
 				$this->session->set_userdata('companies_id', $companies);
 			}
-			$where .= " AND is_approved=1";
+			if ($skills_name != '') {
+				$this->session->set_userdata('skills_name',$skills_name);
+				$skills_name = explode(',', $skills_name);
+				$skills_name = array_unique($skills_name);
+				$skills_id = [];
+			    foreach ($skills_name as $value) {
+			    	$value = rtrim(ltrim($value));
+			    	$single_skill = $this->UserModel->get_skill_by_condition(['skill_name' => $value]);
+			    	if(!empty($single_skill)){
+			    		if ($where != '') {
+				    		$where .= " OR skills_required LIKE '%" . $single_skill[0]['skill_id'] . "%'";
+			    		}else{
+				    		$where .= "skills_required LIKE '%" . $single_skill[0]['skill_id'] . "%'";
+			    		}
+			    		array_push($skills_id, $single_skill[0]['skill_id']);
+			    	}
+			    }
+			    $skills_id = implode(',', $skills_id);
+			    $this->session->set_userdata('skills_id',$skills_id);
+			}
+			if ($where != '') {
+				$where .= " AND ";
+			}
+			$where .= "is_approved=1";
 			$this->load->library('pagination');
 		
 			$config['base_url'] 		= base_url() . "student/view_topic/page/";
@@ -306,6 +364,22 @@ class Student extends MY_Controller {
 			}
 		}
 		echo json_encode($res);
+	}
+
+	public function remove_session(){
+		$action = $this->input->post('action');
+		if (isset($action) && $action == 'skills_id') {
+			$this->session->unset_userdata('skills_id');
+		}
+		if (isset($action) && $action == 'skills_name') {
+			$this->session->unset_userdata('skills_name');
+		}
+		if (isset($action) && $action == 'teachers_id') {
+			$this->session->unset_userdata('teachers_id');
+		}
+		if (isset($action) && $action == 'companies_id') {
+			$this->session->unset_userdata('companies_id');
+		}
 	}
 
 	/**

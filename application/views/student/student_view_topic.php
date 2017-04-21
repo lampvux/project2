@@ -33,7 +33,9 @@
                             <div class="col-xs-8 col-sm-9">
                                 <select id="teacher-id" class="multiselect" multiple="">
                                     <?php foreach ($teachers as $teacher): ?>
-                                        <option value="<?= $teacher['uid'] ?>"><?= $teacher['fullname'] != '' ? $teacher['fullname'] : $teacher['username'] ?></option>
+                                        <option value="<?= $teacher['uid'] ?>"  <?= in_array($teacher['uid'], $teachers_id) ? 'selected' : "" ?> >
+                                            <?= $teacher['fullname'] != '' ? $teacher['fullname'] : $teacher['username'] ?>
+                                        </option>
                                     <?php endforeach ?>
                                 </select>
                             </div>
@@ -44,7 +46,7 @@
                             <div class="col-xs-8 col-sm-9">
                                 <select id="company-id" class="multiselect" multiple="">
                                     <?php foreach ($companies as $company): ?>
-                                        <option value="<?= $company['company_id'] ?>">
+                                        <option value="<?= $company['company_id'] ?>" <?= in_array($company['company_id'], $companies_id) ? 'selected' : "" ?> >
                                             <?= $company['company_name'] ?>
                                         </option>
                                     <?php endforeach ?>
@@ -54,7 +56,7 @@
                         <div class="col-xs-4">
                             <label class="control-label col-xs-4 col-sm-3 no-padding-right" for="company-id">Kỹ năng: </label>
                             <div class="col-xs-8 col-sm-9">
-                                <input type="text" id="skills_id" value="" placeholder="Nhập kỹ năng ..."/>
+                                <input type="text" id="skills_id" value="<?= $skills_name ?>" placeholder="Nhập kỹ năng ..."/>
                             </div>                            
                         </div>
                     </form>
