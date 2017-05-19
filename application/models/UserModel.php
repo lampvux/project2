@@ -235,6 +235,18 @@ class UserModel extends CI_Model {
 		return $this->db->insert(SKILL_TABLE, $data);
 	}
 
+
+	/**
+	 * get info web
+	 * @param 
+	 * 
+	 *
+	 */
+	public function get_info_page(){
+		return $this->db->select('*')->get(SETTING_TABLE)->result_array();
+	}
+
+
 	public function get_topic($offset = 0, $where = NULL){
 		if (NULL == $where) {
 			$where = ['is_approved' => '1'];
@@ -250,6 +262,14 @@ class UserModel extends CI_Model {
 		}
 		return $res;
 
+	}
+
+	public function get_all_topics(){
+		return $this->db->select('*')->where(['is_approved' => '1'])->get(TOPIC_TABLE)->result_array();
+	}
+
+	public function get_all_recruitments(){
+		return $this->db->select('*')->where(['status' => '1'])->get(RECRUITMENT_TABLE)->result_array();
 	}
 
 	public function get_total_topic_valid($where = NULL){

@@ -10,41 +10,41 @@ class Profile extends MY_Controller {
 
 	public function index() {
 		self::save_data();
-		switch ($this->session->user_type) {
-			case 'student':
-				$data['user'] = $this->UserModel->get_user_data(['uid'=>$this->session->uid])[0];
-				$data['user_meta'] = $this->UserModel->get_user_meta(['uid'=>$this->session->uid]);
-				$data['title'] = $data['user']['fullname'] != '' ? $data['user']['fullname'] . ' - Trang cá nhân' : $data['user']['username'] . ' - Trang cá nhân' ;
-				$data['ci_nonce'] = $this->ci_nonce;
+		$data['user'] = $this->UserModel->get_user_data(['uid'=>$this->session->uid])[0];
+		$data['user_meta'] = $this->UserModel->get_user_meta(['uid'=>$this->session->uid]);
+		$data['title'] = $data['user']['fullname'] != '' ? $data['user']['fullname'] . ' - Trang cá nhân' : $data['user']['username'] . ' - Trang cá nhân' ;
+		$data['ci_nonce'] = $this->ci_nonce;
+		switch ($this->session->user_type) {			
+			case 'student':			
 				$this->load->view('student/student_header', $data);
 				$this->load->view('student/student_sidebar');
 				$this->load->view('student/student_content');
 				break;
 			case 'business':
-				$this->load->view('business/business_header');
+				$this->load->view('business/business_header', $data);
 				$this->load->view('business/business_sidebar');
 				$this->load->view('business/business_content');
 				break;
 			case 'admin':
 				$this->load->view('admin/admin_header');
 				$this->load->view('admin/admin_sidebar');
-				$this->load->view('admin/admin_content');
-				$this->load->view('admin/admin_footer');
+				$this->load->view('admin/admin_content');				
 				break;
 			case 'business_staff':
-				$this->load->view('business_emp/business_emp_header');
+				$this->load->view('business_emp/business_emp_header', $data);
 				$this->load->view('business_emp/business_emp_sidebar');
 				$this->load->view('business_emp/business_emp_content');
 				break;
 			case 'instructor_teacher':
-				$this->load->view('teacher_ql/teacher_ql_header');
-				$this->load->view('teacher_ql/teacher_ql_sidebar');
-				$this->load->view('teacher_ql/teacher_ql_content');
-				break;
-			case 'curator_teacher':
-				$this->load->view('teacher_hd/teacher_hd_header');
+
+				$this->load->view('teacher_hd/teacher_hd_header', $data);
 				$this->load->view('teacher_hd/teacher_hd_sidebar');
 				$this->load->view('teacher_hd/teacher_hd_content');
+				break;
+			case 'curator_teacher':
+				$this->load->view('teacher_ql/teacher_ql_header', $data);
+				$this->load->view('teacher_ql/teacher_ql_sidebar');
+				$this->load->view('teacher_ql/teacher_ql_content');
 				break;
 			default:
 				$this->load->view('newmainpage/mainpage-header');

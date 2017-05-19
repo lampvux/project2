@@ -83,6 +83,7 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
 define('ASSET_FOLDER', 'http://nguyendangdungha.com/project/assets/'); //link to assets folder
 define('ASPIRATIONS_TABLE', 'aspirations'); // Lưu nguyện vọng của sinh viên và yêu cầu tuyển dụng của doanh nghiệp
 define('DIVISION_TABLE', 'division'); // Phân công thực tập
@@ -100,6 +101,8 @@ define('NOTIFIATION_TABLE', 'notification'); // Lưu các thông báo mới
 define('MESSAGE_TABLE', 'message'); // Lưu tin nhắn giữa các user trên hệ thống
 define('SETTING_TABLE', 'setting'); // Lưu các setting cho site 
 define('SKILL_TABLE', 'skill'); // Lưu thông tin các kỹ năng
+define('RECRUITMENT_TABLE', 'recruitment'); // Lưu thông tin tuyển dụng
+define('OUTLINE_TABLE', 'outline'); // Lưu thông tin đề cương
 
 
 // ================ USER TYPE =====================

@@ -40,11 +40,16 @@ class TeacherManagerModel extends CI_Model {
     public function send_mail($data){
 
     }
-    public function bus_list($where = "uid > 0 AND user_type='business'", $limit = 0, $offset = 0){
+    public function bus_list($where = "company_id > 0 ", $limit = 0, $offset = 0){
         $offset = $offset > 0 ? $offset : 0 ;
         $limit = $limit > 0 ? $limit : PER_PAGE ;       
-        return $this->db->select('*')->where($where)->get(USER_TABLE, $offset, $limit)->result_array();
+        return $this->db->select('*')->where($where)->get(COMPANY_TABLE, $offset, $limit)->result_array();
     }
-    
+    public function get_bus_recruit($where){
+        return $this->db->where($where)->get(RECRUITMENT_TABLE)->result_array();
+    }
+    public function update_bus_recruit($data,$where){
+        return $this->db->where($where)->update(RECRUITMENT_TABLE, $data);
+    }
 }
 

@@ -109,7 +109,6 @@ jQuery(document).ready(function($) {
     var search_topics = function() {
         var $teachers = $("#teacher-id").val() == null ? "" : $("#teacher-id").val().join(),
             $companies = $("#company-id").val() == null ? "" : $("#company-id").val().join();
-        console.log('searched');
         $.post(
             $('base').attr('href') + "student/search_topics", {
                 action: 'search_topics',

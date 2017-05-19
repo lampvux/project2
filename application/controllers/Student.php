@@ -138,7 +138,15 @@ class Student extends MY_Controller {
 	 * Xử lý đăng ký nguyện vọng
 	 */
 	public function add_aspiration(){
-		
+		$data['user'] 			= $this->UserModel->get_user_data(['uid'=>$this->session->uid])[0];
+		$data['user_meta'] 		= $this->UserModel->get_user_meta(['uid'=>$this->session->uid]);
+		$data['info'] 			=  $this->UserModel->get_info_page();
+		$data['topics'] 		= $this->UserModel->get_all_topics();
+		$data['recruitments'] 	= $this->UserModel->get_all_recruitments();
+		$this->load->view('student/student_header',$data);
+		$this->load->view('student/student_sidebar');
+		$this->load->view('student/student_add_aspiration');
+		$this->load->view('mainpage/special_footer');
 	}
 
 
@@ -410,7 +418,10 @@ class Student extends MY_Controller {
 	 * Có thể là yêu cầu sửa điểm, hoặc khiếu nại về quá trình thực tập
 	 */
 	public function add_complaint(){
-
+		self::load_header(false, 'Gửi khiếu nại');
+		$this->load->view('student/add_complaint');
+		$data = array('is_add_complaint_page' => true);
+		$this->load->view('student/footer', $data);
 	}
 
 

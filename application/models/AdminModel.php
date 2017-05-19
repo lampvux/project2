@@ -76,7 +76,7 @@ class AdminModel extends CI_Model {
      * EX: các giá trị setting cho site
      * @return Boolean
      */
-    public function set_setting($where){       
+    public function set_setting($data){       
         return $this->db->insert(SETTING_TABLE, $data);
         }
 
@@ -91,6 +91,15 @@ class AdminModel extends CI_Model {
         }
     public function delete_user($where) {
         return $this->UserModel->delete_user($where);
+    }
+    /**
+     * lấy danh sách công ty tuyển thực tập
+     * @param 
+     *
+     * @return Boolean
+     */
+    public function get_company_list($where){
+        return $this->db->where($where)->get(RECRUITMENT_TABLE)->result_array();
     }
             
 }
