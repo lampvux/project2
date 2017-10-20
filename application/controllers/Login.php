@@ -20,6 +20,12 @@ class Login extends CI_Controller {
         
         // Load models
         $this->load->model('UserModel');
+        $username   = trim(get_cookie('username'));
+        if ($username !== NULL && $username !== '') {
+            if (self::login_with_cookie()) {
+                redirect('profile','refresh');
+            }
+        }
     }
 
 
@@ -52,13 +58,35 @@ class Login extends CI_Controller {
             $password = md5($this->input->post('password').SALT);
             $user = $this->UserModel->get_user_data(['username' => $username, 'password' => $password]);
             if(count($user)){
+                // Check remember me
+                $remember_me = $this->input->post("remember_me");
+                if (isset($remember_me)) {
+                    $this->input->set_cookie(array(
+                        'name'   => 'uid',
+                        'value'  => $user[0]['uid'],                            
+                        'expire' => 3600*24*30,
+                        'domain' => base_url()
+                        ));
+                    $this->input->set_cookie(array(
+                        'name'   => 'username',
+                        'value'  => $username,                            
+                        'expire' => 3600*24*30,
+                        'domain' => base_url()
+                        ));
+                    $this->input->set_cookie(array(
+                        'name'   => 'password',
+                        'value'  => $password,                            
+                        'expire' => 3600*24*30,
+                        'domain' => base_url()
+                        ));
+                }
                 // Cài đặt thông báo
                 $this->session->set_flashdata('type', 'success');
                 $this->session->set_flashdata('msg', 'Đăng nhập thành công');
                 $this->session->set_userdata('is_logged_in', true);
                 $this->session->set_userdata('uid', $user[0]['uid']);
                 $this->session->set_userdata('user_type', $user[0]['user_type']);
-                redirect('/profile');
+                redirect('profile');
             }else{
                 // Cài đặt thông báo
                 $this->session->set_flashdata('type', 'danger');
@@ -108,7 +136,7 @@ class Login extends CI_Controller {
             $this->session->set_userdata('is_logged_in', true);
             $this->session->set_userdata('uid', $uid);
             $this->session->set_userdata('user_type', $this->input->post('user_type'));
-            redirect('/profile');
+            redirect('profile');
                 
         }
     	
@@ -128,29 +156,27 @@ class Login extends CI_Controller {
 
         if (isset($_POST['email_address'])) {
             $to = $this->input->post('email_address');
-            // $this->load->library('email');
+            $this->load->library('email');
 
-            // $this->email->from('tiendatbt@gmail.com', 'Nguyễn Tiến Đạt');
-            // $this->email->to($to);
+            $this->email->from('tiendatbt@gmail.com', 'Nguyễn Tiến Đạt');
+            $this->email->to($to);
 
-            // $this->email->subject('RESET PASSWORD');
-            // $this->email->message("Xin chào, chúng tôi nhận được yêu cầu thay đổi mật khẩu của bạn. Vui lòng truy cập vào đường dẫn sau để thực hiện thay đổi: " . base_url('/reset_password/' . base64_encode($to)));
+            $this->email->subject('RESET PASSWORD');
+            $this->email->message("Xin chào, chúng tôi nhận được yêu cầu thay đổi mật khẩu của bạn. Vui lòng truy cập vào đường dẫn sau để thực hiện thay đổi: " . base_url('/reset_password/' . base64_encode($to)));
 
-            // $this->email->send();
+            $this->email->send();
             // Cài đặt thông báo
             $this->session->set_flashdata('type', 'success');
             $this->session->set_flashdata('msg', 'Đường dẫn đã được gửi tới email của bạn. Vui lòng kiểm tra email và thay đổi mật khẩu.');
-            echo "Xin chào, chúng tôi nhận được yêu cầu thay đổi mật khẩu của bạn. Vui lòng truy cập vào đường dẫn sau để thực hiện thay đổi: " . base_url('/reset_password/' . base64_encode($to));
-            // redirect('/login');
+            redirect('/login');
         }
     }
-
 
     public function login_with_social(){
         if (isset($_POST['avatar'])) {
             $email = $this->input->post('email');
             $result = [];
-            $user = $this->UserModel->get_user_data(['email' => $email]);
+            $user = $this->UserModel->get_user_data(array('email' => $email));
             if (count($user)) {
                 // Cài đặt thông báo
                 $this->session->set_flashdata('type', 'success');
@@ -181,5 +207,40 @@ class Login extends CI_Controller {
             echo json_encode($res);
         }
     }
+
+
+    private function login_with_cookie(){
+        $username   = trim(get_cookie('username'));
+        $password   = trim(get_cookie('password'));
+        $uid        = trim(get_cookie('uid'));
+        
+        $user = $this->UserModel->get_user_data(['username' => $username, 'password' => $password]);
+        if(count($user)){
+            if ($user[0]['uid'] == $uid) {
+                $this->session->set_flashdata('type', 'success');
+                $this->session->set_flashdata('msg', 'Đăng nhập thành công bằng cookie');
+                $this->session->set_userdata('is_logged_in', true);
+                $this->session->set_userdata('uid', $user[0]['uid']);
+                $this->session->set_userdata('user_type', $user[0]['user_type']);
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * Thêm thông tin công ty đối tác
+     * @param [array] $data [mảng dữ liệu]
+     */
+    private function add_company($data = null){
+        if ($data == null) {
+            return false;
+        }
+        return $this->UserModel->add_company($data);
+    }
+
 }
 ?>

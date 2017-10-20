@@ -65,6 +65,7 @@ class CI_Controller {
 	 */
 	public function __construct()
 	{
+		self::prevent_cross_domain();
 		self::$instance =& $this;
 
 		// Assign all the class objects that were instantiated by the
@@ -91,6 +92,18 @@ class CI_Controller {
 	public static function &get_instance()
 	{
 		return self::$instance;
+	}
+
+	/**
+	 * Prevent Cross domain request
+	 */
+	
+	private function prevent_cross_domain(){
+		if($_SERVER['HTTP_HOST'] != "nddh-demo.info") {
+		  header('Content-Type: text/html');
+		  echo "<!DOCTYPE html><html><head><title>403 Forbidden</title></head><body><p>Directory access is forbidden.</p><p>You are trying to request from other server and it is not allowed. Sorry for that</p></body></html>";
+		  die();
+		}
 	}
 
 }

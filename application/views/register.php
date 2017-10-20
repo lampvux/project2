@@ -45,6 +45,9 @@
 				<div class="col-sm-10 col-sm-offset-1">
 					<div class="login-container">
 						<?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
+						<?php if ($this->session->flashdata('type') && $this->session->flashdata('type') == 'error') {
+							echo '<div class="alert alert-danger">'.$this->session->flashdata('msg').'</div>';
+						} ?>
 						<div class="space-20"></div>
 
 						<div class="position-relative">
@@ -54,12 +57,12 @@
 									<div class="widget-main">
 										<h4 class="header green lighter bigger">
 											<i class="ace-icon fa fa-users"></i>
-											New User Registration
+											Đăng ký
 										</h4>
 
 										<div class="space-6"></div>
 										
-										<p> Enter your details to begin: </p>
+										<p> Vui lòng điền đầy đủ thông tin: </p>
 
 										<?php echo form_open();	 ?>
 											
@@ -108,8 +111,8 @@
 													
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-left">
-															<i class="ace-icon fa fa-graduation-cap"></i>
 															<input type="text" name="student_id" id="student_id" class="form-control" placeholder="Mã số sinh viên">
+															<i class="ace-icon fa fa-graduation-cap"></i>
 														</span>
 													</label>
 													
@@ -134,8 +137,7 @@
 
 									<div class="toolbar center">
 										<a href="login" class="back-to-login-link">
-											<i class="ace-icon fa fa-arrow-left"></i>
-											Back to login
+											Đăng nhập
 										</a>
 									</div>
 								</div><!-- /.widget-body -->
@@ -178,10 +180,11 @@
 				switch (user_type){
 					case "<?php echo STUDENT_USER_TYPE;?>":
 						meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
-							'<input type="text" name="student_id" id="student_id" class="form-control" placeholder="Mã số sinh viên">'+
-							'<i class="ace-icon fa graduation-cap"></i></span></label>';
+							'<input required type="text" name="student_id" id="student_id" class="form-control" placeholder="Mã số sinh viên">'+
+							'<i class="ace-icon fa fa-graduation-cap"></i></span></label>';
 						break;
 					case "<?php echo BUSSINESS_USER_TYPE;?>":
+					<?php if (count($companies)): ?>
 						meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 							'<select class="form-control" name="company_id" id="company_id">'+
 							<?php foreach ($companies as $company) {
@@ -189,39 +192,78 @@
 							}?>
 							'<option value="other">Công ty khác</option></select>';
 						break;
+					<?php else: ?>
+						meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_name" id="company_name" class="form-control" placeholder="Tên công ty">'+
+						'<i class="ace-icon fa fa-building-o"></i></span></label>'+
+						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_domain" id="company_domain" class="form-control" placeholder="Trang web công ty">'+
+						'<i class="ace-icon fa fa-globe"></i></span></label>'+
+						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_phone" id="company_phone" class="form-control" placeholder="Số máy công ty">'+
+						'<i class="ace-icon fa fa-phone"></i></span></label>'+
+						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
+						'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
+						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
+						'<i class="ace-icon fa fa-map-marker "></i></span></label>';
+						break;
+					<?php endif; ?>
 					case "<?php echo BUSSINESS_STAFF_USER_TYPE;?>":
+					<?php if (count($companies)): ?>
 						meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 							'<select class="form-control" name="company_id" id="company_id">'+
 							<?php foreach ($companies as $company) {
 								echo "'<option value=\'".$company['company_id']."\'>".$company['company_name']."</option>'+";
 							}?>
-							'<option value="other">Công ty khác</option></select>';
+							'</select>';
 						break;
+					<?php else: ?>
+						meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_name" id="company_name" class="form-control" placeholder="Tên công ty">'+
+						'<i class="ace-icon fa fa-building-o"></i></span></label>'+
+						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_domain" id="company_domain" class="form-control" placeholder="Trang web công ty">'+
+						'<i class="ace-icon fa fa-globe"></i></span></label>'+
+						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_phone" id="company_phone" class="form-control" placeholder="Số máy công ty">'+
+						'<i class="ace-icon fa fa-phone"></i></span></label>'+
+						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
+						'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
+						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+						'<input required type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
+						'<i class="ace-icon fa fa-map-marker "></i></span></label>';
+						break;
+					<?php endif; ?>
 					default:
 						break;
 				}
 				if (meta != '') {
 					$(".user_type_meta").slideDown(400).html(meta);				
 				}
+				$("#company_date_created").datepicker({format: 'yyyy-mm-dd'});
+				initAutoComplete( document.getElementById('company_address') );
 
 			});
 			$('.user_type_meta').on("change", "#company_id", function(){
 				if ($(this).val() == 'other' ) {
 					$(".user_type_meta").slideUp(400);
 					$(".user_type_meta").slideDown(400).html('<label class="block clearfix"><span class="block input-icon input-icon-left">'+
-						'<input type="text" name="company_name" id="company_name" class="form-control" placeholder="Tên công ty">'+
+						'<input required type="text" name="company_name" id="company_name" class="form-control" placeholder="Tên công ty">'+
 						'<i class="ace-icon fa fa-building-o"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
-						'<input type="text" name="company_domain" id="company_domain" class="form-control" placeholder="Trang web công ty">'+
+						'<input required type="text" name="company_domain" id="company_domain" class="form-control" placeholder="Trang web công ty">'+
 						'<i class="ace-icon fa fa-globe"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
-						'<input type="text" name="company_phone" id="company_phone" class="form-control" placeholder="Số máy công ty">'+
+						'<input required type="text" name="company_phone" id="company_phone" class="form-control" placeholder="Số máy công ty">'+
 						'<i class="ace-icon fa fa-phone"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
-						'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
-						'<i class="ace-icon fa fa-calendar"></i></span></label>'+
+						'<input required type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
+						'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
 						'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
-						'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
+						'<input required type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
 						'<i class="ace-icon fa fa-map-marker "></i></span></label>'
 					);
 					$("#company_date_created").datepicker({format: 'yyyy-mm-dd'});

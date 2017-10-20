@@ -40,12 +40,13 @@
 	<body class="login-layout">
 		<div class="main-container">
 			<div class="main-content">
+			<div class="space-20"></div>
 				<div class="row">
 					<div class="col-sm-10 col-sm-offset-1">
 						<div class="login-container">
 							<div class="center">
 								<?php if ($this->session->flashdata('type')): ?>
-									<div class="pull-left alert alert-<?php echo $this->session->flashdata('type');?> no-margin alert-dismissable">
+									<div class="alert alert-<?php echo $this->session->flashdata('type');?> no-margin alert-dismissable">
 			                            <button type="button" class="close" data-dismiss="alert">
 			                                <i class="ace-icon fa fa-times"></i>
 			                            </button>
@@ -54,9 +55,9 @@
 								<?php endif ?>
 							</div>
 							<?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-							<div class="space-20"></div>
+							
 
-							<div class="position-relative">
+							<div class="position-relative" id="login-res">
 								<div id="login-box" class="login-box visible widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">
@@ -124,6 +125,12 @@
 												</a>
 											</div>
 
+											<div class="text-center">
+												<a href="mainpage">
+													Trang Chủ
+												</a>
+											</div>
+
 											<div>
 												<a href="register" class="user-signup-link">
 													Đăng ký mới
@@ -132,7 +139,6 @@
 										</div>
 									</div><!-- /.widget-body -->
 								</div><!-- /.login-box -->
-
 								<div id="forgot-box" class="forgot-box widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">
@@ -199,15 +205,14 @@
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			jQuery(function($) {
-			 $(document).on('click', '.toolbar a[data-target]', function(e) {
-				e.preventDefault();
-				var target = $(this).data('target');
-				$('.widget-box.visible').removeClass('visible');//hide others
-				$(target).addClass('visible');//show target
-			 });
+			 	$(document).on('click', '.toolbar a[data-target]', function(e) {
+					e.preventDefault();
+					var target = $(this).data('target');
+					$('.widget-box.visible').removeClass('visible');//hide others
+					$(target).addClass('visible');//show target
+				 	
+			 	});
 			});
-		</script>
-		<script type="text/javascript">
 			
 			// Facebook JS API setup
   			window.fbAsyncInit = function() {
@@ -246,13 +251,13 @@
 						      				avatar 		: data.data.url
 						      			};
 						      			$.ajax({
-						      				url: $('base').attr('href')+'/login/login_with_social',
+						      				url: $('base').attr('href')+'login/login_with_social',
 						      				type: 'POST',
 						      				dataType: 'json',
-						      				data: user_data,
+						      				data: user_data
 						      			})
 						      			.done(function(data) {
-						      				console.log("========== AJAX ==========");
+						      				console.log(data);
 						      				if (data.type == 'login_success') {
 						      					window.location = $('base').attr('href')+'/profile/';
 						      				}else{
@@ -275,7 +280,7 @@
 				// Google JS API setup
 				gapi.load('auth2', function() {
 					auth2 = gapi.auth2.init({
-					    client_id: '171509241412-bbo0uqk4phudbvigsh5bsnkrindl6cpf.apps.googleusercontent.com',
+					    client_id: '766757839775-ao74ir3qbsmtoibckg1icmq3d0duh3dm.apps.googleusercontent.com',
 					    fetch_basic_profile: true,
 					    scope: 'profile email openid'
 					});
@@ -293,13 +298,13 @@
 			      				avatar 		: profile.getImageUrl()
 			      			};
 			      			$.ajax({
-			      				url: $('base').attr('href')+'/login/login_with_social',
+			      				url: $('base').attr('href')+'login/login_with_social',
 			      				type: 'POST',
 			      				dataType: 'json',
-			      				data: user_data,
+			      				data: user_data
 			      			})
 			      			.done(function(data) {
-			      				console.log("========== AJAX ==========");
+			      				console.log(data);
 			      				if (data.type == 'login_success') {
 			      					window.location = $('base').attr('href')+'/profile/';
 			      				}else{
@@ -358,8 +363,7 @@
 				$('form#login-form fieldset').html(div).slideDown(400);
 			}
 		</script> 
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMTQLm7omfoGI6tpH2AtNrL-_5aBdLsE&libraries=places"
-        async defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMTQLm7omfoGI6tpH2AtNrL-_5aBdLsE&libraries=places" async defer></script>
    		
 		<script type="text/javascript">
 	    	function initAutoComplete(input){
@@ -374,9 +378,10 @@
 						case "<?php echo STUDENT_USER_TYPE;?>":
 							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 								'<input type="text" name="student_id" id="student_id" class="form-control" placeholder="Mã số sinh viên">'+
-								'<i class="ace-icon fa graduation-cap"></i></span></label>';
+								'<i class="ace-icon fa fa-graduation-cap"></i></span></label>';
 							break;
 						case "<?php echo BUSSINESS_USER_TYPE;?>":
+						<?php if (count($companies)): ?>
 							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 								'<select class="form-control" name="company_id" id="company_id">'+
 								<?php foreach ($companies as $company) {
@@ -384,7 +389,26 @@
 								}?>
 								'<option value="other">Công ty khác</option></select>';
 							break;
+						<?php else: ?>
+							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_name" id="company_name" class="form-control" placeholder="Tên công ty">'+
+							'<i class="ace-icon fa fa-building-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_domain" id="company_domain" class="form-control" placeholder="Trang web công ty">'+
+							'<i class="ace-icon fa fa-globe"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_phone" id="company_phone" class="form-control" placeholder="Số máy công ty">'+
+							'<i class="ace-icon fa fa-phone"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
+							'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
+							'<i class="ace-icon fa fa-map-marker "></i></span></label>';
+							break;
+						<?php endif; ?>
 						case "<?php echo BUSSINESS_STAFF_USER_TYPE;?>":
+						<?php if (count($companies)): ?>
 							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 								'<select class="form-control" name="company_id" id="company_id">'+
 								<?php foreach ($companies as $company) {
@@ -392,12 +416,32 @@
 								}?>
 								'<option value="other">Công ty khác</option></select>';
 							break;
+						<?php else: ?>
+							meta = '<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_name" id="company_name" class="form-control" placeholder="Tên công ty">'+
+							'<i class="ace-icon fa fa-building-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_domain" id="company_domain" class="form-control" placeholder="Trang web công ty">'+
+							'<i class="ace-icon fa fa-globe"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_phone" id="company_phone" class="form-control" placeholder="Số máy công ty">'+
+							'<i class="ace-icon fa fa-phone"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
+							'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
+							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
+							'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
+							'<i class="ace-icon fa fa-map-marker "></i></span></label>';
+							break;
+						<?php endif; ?>
 						default:
 							break;
 					}
 					if (meta != '') {
 						$(".user_type_meta").slideDown(400).html(meta);				
 					}
+					$("#company_date_created").datepicker({format: 'yyyy-mm-dd'});
+					initAutoComplete( document.getElementById('company_address') );
 
 				});
 				$('#login-box').on("change", "#company_id", function(){
@@ -414,7 +458,7 @@
 							'<i class="ace-icon fa fa-phone"></i></span></label>'+
 							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 							'<input type="text" name="company_date_created" id="company_date_created" class="form-control" placeholder="Ngày thành lập">'+
-							'<i class="ace-icon fa fa-calendar"></i></span></label>'+
+							'<i class="ace-icon fa fa-calendar-o"></i></span></label>'+
 							'<label class="block clearfix"><span class="block input-icon input-icon-left">'+
 							'<input type="text" name="company_address" id="company_address" class="form-control" placeholder="Địa chỉ công ty">'+
 							'<i class="ace-icon fa fa-map-marker "></i></span></label>'

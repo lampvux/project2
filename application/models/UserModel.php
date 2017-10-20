@@ -154,7 +154,23 @@ class UserModel extends CI_Model {
 	 * @return [array]        [mảng thông tin]
 	 */
 	public function get_user_meta($where){
-		return $this->db->where($where)->get(USER_META_TABLE)->result_array();
+		$meta = array();
+		$results = $this->db->where($where)->get(USER_META_TABLE)->result_array();
+		foreach ($results as $key => $value) {
+			// Nếu có nhiều meta chứa cùng một thông tin của một key
+			// Ví dụ: Sở thích (nghe nhạc, xem phim, du lịch, chịch dạo ...)
+			if (array_key_exists($value['meta_key'], $meta) ) {
+				if (!is_array($meta[$value['meta_key']]) ) {
+					$meta[$value['meta_key']] = [ $meta[$value['meta_key']] ];
+					array_push($meta[$value['meta_key']], $value['meta_value']);
+				}else{
+					array_push($meta[$value['meta_key']], $value['meta_value']);
+				}
+			}else{
+				$meta[$value['meta_key']] = $value['meta_value'];
+			}
+		}
+		return $meta;
 	}
 
 	/**
@@ -164,6 +180,16 @@ class UserModel extends CI_Model {
 	 */
 	public function delete_user_meta($where){
 		return $this->db->where($where)->delete(USER_META_TABLE);
+	}
+
+
+	/**
+	 * Xoá một bản ghi trên bảng thông tin phụ của user
+	 * @param  [array|string] $where [Điều kiện xóa thông tin]
+	 * @return [Boolean]
+	 */
+	public function delete_once_user_meta($where){
+		return $this->db->where($where)->limit(1)->delete(USER_META_TABLE);
 	}
 
 
@@ -178,6 +204,104 @@ class UserModel extends CI_Model {
 	}
 
 
+	/**
+	 * Lấy toàn bộ thông tin của các skills
+	 * @return [mảng dữ liệu chứa thông tin của toàn bộ các skills]
+	 */
+	public function get_skills(){
+		return $this->db->select('*')->get(SKILL_TABLE)->result_array();
+	}
+
+
+	/**
+	 * Lấy thông tin chính của user
+	 * @param  [array|string] $where [Điều kiện lấy thông tin]
+	 * @return [array]        [mảng thông tin]
+	 */
+	public function get_skill_by_condition($where){
+		return $this->db->where($where)->get(SKILL_TABLE)->result_array();
+	}
+
+
+	/**
+	 * Thêm skill
+	 * @param [array] $data [chứa thông tin cơ bản của skill]
+	 * EX: $data = [
+	 * 		'skill_name' 	=> 'Nguyễn Tiên Đạt', 
+	 * 		'cat_id' 		=> '123'
+	 * 	]
+	 */
+	public function add_new_skill($data){
+		return $this->db->insert(SKILL_TABLE, $data);
+	}
+
+
+	/**
+	 * get info web
+	 * @param 
+	 * 
+	 *
+	 */
+	public function get_info_page(){
+		return $this->db->select('*')->get(SETTING_TABLE)->result_array();
+	}
+
+
+	public function get_topic($offset = 0, $where = NULL){
+		if (NULL == $where) {
+			$where = ['is_approved' => '1'];
+		}
+		$limit = $offset . PER_PAGE;
+		$res = $this->db->select('*')->from(TOPIC_TABLE)->join(USER_TABLE, USER_TABLE.'.uid='.TOPIC_TABLE. '.professor_id', 'left')->where($where)->limit($limit, $offset)->order_by('topic.date_create', 'DESC')->get()->result_array();
+		if (count($res)) {
+			foreach ($res as &$topic) {
+				$topic['skills_required'] = $this->db->select('skill_name')->where('skill_id IN ('.$topic['skills_required'].')')->get(SKILL_TABLE)->result_array();
+				$topic['user_avatar'] = self::get_user_meta(['uid' => $topic['professor_id'], 'meta_key' => 'avatar']);
+				$topic['company_name'] = $this->db->select('company_name')->where('company_id='.$topic['company_id'])->get(COMPANY_TABLE)->result_array()[0]['company_name'];
+			}
+		}
+		return $res;
+
+	}
+
+	public function get_all_topics(){
+		return $this->db->select('*')->where(['is_approved' => '1'])->get(TOPIC_TABLE)->result_array();
+	}
+
+	public function get_all_recruitments(){
+		return $this->db->select('*')->where(['status' => '1'])->get(RECRUITMENT_TABLE)->result_array();
+	}
+
+	public function get_total_topic_valid($where = NULL){
+		if (NULL == $where) {
+			$where = ['is_approved' => '1'];
+		}
+		return $this->db->select('*')->where($where)->get(TOPIC_TABLE)->num_rows();
+	}
+
+	private function unique_multidim_array($array, $key) { 
+	    $temp_array = array(); 
+	    $i = 0; 
+	    $key_array = array(); 
+	    
+	    foreach($array as $val) { 
+	        if (!in_array($val[$key], $key_array)) { 
+	            $key_array[$i] = $val[$key]; 
+	            $temp_array[$i] = $val; 
+	        } 
+	        $i++; 
+	    } 
+	    return $temp_array; 
+	} 
+
+
+	/**
+	 * Lấy toàn bộ giáo viên quản lý
+	 * @return [mảng] [Dữ liệu của giáo viên]
+	 */
+	public function get_curator_teachers(){
+		return $this->db->select("uid, fullname, username")->where(['user_type' => CURATOR_TEACHER_USER_TYPE])->get(USER_TABLE)->result_array();
+	}
 }
 
 /* End of file UserModel.php */

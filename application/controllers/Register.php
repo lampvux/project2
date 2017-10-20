@@ -7,13 +7,17 @@ class Register extends CI_Controller {
     private $ci_nonce;
     function __construct() {
         parent::__construct();
-        // $this->load->model('User');
         // Nếu chưa khởi tạo access token\
         if (!$this->session->has_userdata('ci_nonce')) {
             $this->session->set_userdata("ci_nonce", substr(md5(microtime()),0,15));
         }
+
         $this->ci_nonce = $this->session->ci_nonce;
         
+        if ($this->session->is_logged_in) {
+            redirect('profile','refresh');
+        }
+
         // Load libraries
         $this->load->library('form_validation');
         
@@ -24,13 +28,13 @@ class Register extends CI_Controller {
 
     public function index() {
         // Đặt các luật kiểm tra các trường của form
-        $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|trim|is_unique[user.username]|regex_match[/^[A-Za-z0-9\s-]{4,}$/i]');
-        $this->form_validation->set_rules("password', 'Mật khẩu', 'required|regex_match[/^[A-Za-z_0-9-]{4,15}[^'\x22\s@!]+$/]");
+        $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|trim|is_unique[user.username]|regex_match[/^[A-Za-z0-9\s-_]{4,}$/i]');
+        $this->form_validation->set_rules("password', 'Mật khẩu', 'required|regex_match[/^[A-Za-z_0-9-_]{4,15}[^'\x22\s@!]+$/]");
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[user.email]|callback_is_valid_school_email');
         $this->form_validation->set_rules( 'access_token', 'Access Token', 'required|callback_is_match_access_token');
 
         // Đặt thông báo khi các trường không thỏa mãn điều kiện đầu vào
-        $this->form_validation->set_message('is_match_access_token', '%s không khớp!');
+        $this->form_validation->set_message('is_match_access_token', '%s không khớp! Vui lòng tải lại trang');
         $this->form_validation->set_message('required', 'Vui lòng không bỏ trống trường %s!');
         $this->form_validation->set_message('min_length', '%s phải dài hơn %d ký tự!');
         $this->form_validation->set_message('max_length', '%s phải ngắn hơn %d ký tự!');
@@ -47,26 +51,46 @@ class Register extends CI_Controller {
             $this->load->view('register', $data);
         }
         else{ 
+            $post = $this->input->post(NULL, TRUE);
+            if (isset($post['company_name'])) {
+                $not_issets = FALSE;
+                foreach (['company_name', 'company_address', 'company_domain', 'company_phone', 'company_date_created'] as $key) {
+                    if (isset($post[$key])) {
+                        // Cài đặt thông báo
+                        $this->session->set_flashdata('type', 'error');
+                        $this->session->set_flashdata('msg', '<b>Ối</b><br/>Bị thiếu mất trường "'. str_replace('_', ' ', $key).'" rồi. Vui lòng điền lại');
+                        redirect('register');
+
+                    }
+                }
+                if (isset($post['user_type'])) {
+                    // Cài đặt thông báo
+                    $this->session->set_flashdata('type', 'error');
+                    $this->session->set_flashdata('msg', '<b>Ối</b><br/>Có vẻ như ai đó đã thay đổi mã HTML, nhân viên công ty thì không được tạo công ty mới nhé<br/><p>We\'re watching you! Be careful.</p>');
+                    redirect('register');
+                }
+            }
+
             $user_content = [
-                'username'  => $this->input->post('username'),
-                'password'  => md5($this->input->post('password') . SALT),
-                'email'     => $this->input->post('email'),
-                'user_type' => $this->input->post('user_type')
+                'username'  => $post['username'],
+                'password'  => md5($post['password'] . SALT),
+                'email'     => $post['email'],
+                'user_type' => $post['user_type']
             ];
             $uid = $this->UserModel->add_user($user_content);
             if ($uid) {
                 $company_id = 0;
-                if (isset($_POST['company_name'])) {
+                if (isset($post['company_name'])) {
                     $company_id = $this->add_company([
-                        'company_name'          => $this->input->post('company_name'),
-                        'company_address'       => $this->input->post('company_address'),
-                        'company_domain'        => $this->input->post('company_domain'),
-                        'company_phone'         => $this->input->post('company_phone'),
-                        'company_date_created'  => $this->input->post('company_date_created')
+                        'company_name'          => $post['company_name'],
+                        'company_address'       => $post['company_address'],
+                        'company_domain'        => $post['company_domain'],
+                        'company_phone'         => $post['company_phone'],
+                        'company_date_created'  => $post['company_date_created']
                     ]);
                 }
-                elseif (isset($_POST['company_id'])) {
-                    $company_id = $_POST['company_id'];
+                elseif (isset($post['company_id'])) {
+                    $company_id = $post['company_id'];
                 }
                 if ($company_id) {
                     $this->UserModel->add_user_meta([
@@ -76,18 +100,18 @@ class Register extends CI_Controller {
                     ]);
                 }
                 
-                if (isset($_POST['student_id'])) {
+                if (isset($post['student_id'])) {
                     $this->UserModel->add_user_meta([
                         'uid'       => $uid ,
                         'meta_key'  => 'student_id',
-                        'meta_value'=> $_POST['student_id']
+                        'meta_value'=> $post['student_id']
                     ]);
                 }
 
                 // Cài đặt thông báo
                 $this->session->set_flashdata('type', 'success');
                 $this->session->set_flashdata('msg', 'Đăng ký thành công, vui lòng đăng nhập');
-                redirect('/login');
+                redirect('login');
                 
             }
 
