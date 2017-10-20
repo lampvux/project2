@@ -3,7 +3,7 @@
 
         <div class="page-header">
             <h1>
-                Xin chào <?= $user['fullname'] == '' ? $user['uid'] : $user['uid'] ?>!
+                Xin chào <?= $user['fullname'] == '' ? $user['username'] : $user['fullname'] ?>!
             </h1>
         </div><!-- /.page-header -->
 
@@ -25,9 +25,27 @@
 			<!-- user-cv -->
 
             <div class="row">
-                <pre>
-                    <?php print_r($marks); ?>
-                </pre>
+                <?php foreach ($marks as $mark): ?>
+                    <div class="col-xs-6 col-md-2 col-lg-2 col-sm-3 infobox infobox-green2 infobox-dark ">
+                        <img class="infobox-icon" src="assets/img/<?php echo $mark['type']; ?>.png" alt="<?php echo $mark['type']; ?>" style="opacity: 0.5">
+                        <div class="infobox-data">
+                            <span class="infobox-data-number"><?php echo $mark['value']; ?></span>
+                            <div class="infobox-content">
+                                <?php switch ($mark['type']) {
+                                    case 'mark':
+                                        echo "Total";
+                                        break;
+                                    case 'markmid':
+                                        echo "Middle exam";
+                                        break;
+                                    case 'markend':
+                                        echo "Final exam";
+                                        break;
+                                } ?>
+                            </div>
+                        </div>  
+                    </div>
+                <?php endforeach ?>
             </div>
         
             <!-- /.user-cv -->
