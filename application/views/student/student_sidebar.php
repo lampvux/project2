@@ -30,7 +30,7 @@
 
 				<b class="arrow"></b>
 			</li>
-
+<!-- 
 			<li class="">
 				<a href="student/view_task">
 					<i class="menu-icon fa fa-tasks"></i>
@@ -38,7 +38,7 @@
 				</a>
 
 				<b class="arrow"></b>
-			</li>
+			</li> -->
 
 			<li class="">
 				<a href="student/view_topic">
