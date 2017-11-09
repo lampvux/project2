@@ -41,15 +41,6 @@
 			</li>
 
 			<li class="">
-				<a href="student/view_noti">
-					<i class="menu-icon fa fa-bell-o"></i>
-					<span class="menu-text"> Thông báo </span>
-				</a>
-
-				<b class="arrow"></b>
-			</li>
-
-			<li class="">
 				<a href="student/view_topic">
 					<i class="menu-icon fa fa-calendar-o"></i>
 
@@ -82,7 +73,7 @@
 
 				<b class="arrow"></b>
 			</li>
-
+<!-- 
 			<li class="">
 				<a href="student/add_rate">
 					<i class="menu-icon fa fa-rss-square"></i>
@@ -92,7 +83,7 @@
 				</a>
 
 				<b class="arrow"></b>
-			</li>
+			</li> -->
 		</ul><!-- /.nav-list -->
 
 		<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
